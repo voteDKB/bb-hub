@@ -127,13 +127,22 @@ function renderApps() {
     card.id = `app-${app.id}`;
 
     card.innerHTML = `
-      <div class="app-header">
-        <h3 class="app-title">${app.name}</h3>
-        <div class="app-progress" id="appProgress-${app.id}">0 / 0</div>
-      </div>
-      <div class="mission-list" id="missionList-${app.id}"></div>
-    `;
+  <div class="app-header">
+    <div class="app-title-wrap">
+      <span class="app-icon">${app.icon || ""}</span>
+      <h3 class="app-title">${app.name}</h3>
+    </div>
 
+    <div class="app-progress" id="appProgress-${app.id}">0 / 0</div>
+  </div>
+
+  <div class="deadline-box" id="deadline-${app.id}">
+    <span class="deadline-label" data-i18n="deadline.label">${t("deadline.label")}</span>
+    <strong class="deadline-time" id="deadlineTime-${app.id}">--</strong>
+  </div>
+
+  <div class="mission-list" id="missionList-${app.id}"></div>
+`;
     appList.appendChild(card);
 
     const missionList = document.getElementById(`missionList-${app.id}`);
@@ -296,6 +305,7 @@ function updateAll() {
     });
 
     updateAppDisplay(app, appCompleted, appTotal);
+    updateDeadlineDisplay(app);
   });
 
   updateSummaryDisplay(completedMissions, totalMissions);
@@ -464,6 +474,7 @@ function startTimerLoop() {
     }
 
     APPS.forEach((app) => {
+      updateDeadlineDisplay(app);
       app.missions.forEach((mission) => {
         if (mission.hourlyLimit && mission.cooldownMinutes) {
           const missionState = state.apps[app.id][mission.id];
@@ -480,4 +491,43 @@ function formatTime(ms) {
   const seconds = String(totalSeconds % 60).padStart(2, "0");
 
   return `${minutes}:${seconds}`;
+}
+function updateDeadlineDisplay(app) {
+  if (!app.deadline) return;
+
+  const box = document.getElementById(`deadline-${app.id}`);
+  const timeEl = document.getElementById(`deadlineTime-${app.id}`);
+  if (!box || !timeEl) return;
+
+  const deadline = new Date(app.deadline).getTime();
+  const now = Date.now();
+  const diff = deadline - now;
+
+  box.classList.remove("urgent", "warning", "closed");
+
+  if (diff <= 0) {
+    box.classList.add("closed");
+    timeEl.textContent = t("deadline.closed");
+    return;
+  }
+
+  const totalSeconds = Math.floor(diff / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, "0");
+  const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+  const seconds = String(totalSeconds % 60).padStart(2, "0");
+
+  if (days <= 2) {
+    box.classList.add("urgent");
+  } else if (days <= 6) {
+    box.classList.add("warning");
+  }
+
+  if (currentLang === "en") {
+    timeEl.textContent = `${days}d ${hours}:${minutes}:${seconds}`;
+  } else if (currentLang === "ko") {
+    timeEl.textContent = `${days}일 ${hours}:${minutes}:${seconds}`;
+  } else {
+    timeEl.textContent = `${days}日 ${hours}:${minutes}:${seconds}`;
+  }
 }
