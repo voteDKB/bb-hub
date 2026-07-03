@@ -1,22 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>BB Hub | Daily Voting Tracker</title>
-
-  <meta name="description" content="Daily voting tracker for BB." />
-  <meta name="theme-color" content="#4A6CFF" />
+  <title>BB Hub</title>
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <main id="app" class="page"></main>
+  <div class="app">
 
-  <script src="data.js"></script>
+    <header class="header">
+      <div class="header-inner">
+        <p class="eyebrow">DKB Voting Tracker</p>
+        <h1 data-i18n="app.title">BB Hub</h1>
+        <p class="subtitle" data-i18n="app.subtitle">
+          今日の投票ミッションをチェックしよう
+        </p>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <section class="language-card">
+        <button class="lang-btn active" data-lang="ja">日本語</button>
+        <button class="lang-btn" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+      </section>
+
+      <section class="summary-card">
+        <div class="summary-top">
+          <div>
+            <p class="section-label" data-i18n="summary.title">今日の進捗</p>
+            <h2 id="totalProgressText">0 / 0</h2>
+          </div>
+          <div class="percent" id="totalPercent">0%</div>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="totalProgressBar"></div>
+        </div>
+
+        <p class="summary-note">
+          <span id="completedCount">0</span>
+          <span data-i18n="summary.complete">完了</span> /
+          <span id="remainingCount">0</span>
+          <span data-i18n="summary.remaining">残り</span>
+        </p>
+      </section>
+
+      <section id="appList" class="app-list">
+        <!-- script.jsで自動生成 -->
+      </section>
+
+      <button id="resetBtn" class="reset-btn" data-i18n="button.reset">
+        今日の進捗をリセット
+      </button>
+
+    </main>
+
+  </div>
+
   <script src="translations.js"></script>
+  <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
