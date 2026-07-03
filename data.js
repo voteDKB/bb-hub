@@ -1,40 +1,89 @@
-const APP_DATA = [
+// data.js
+// BB Hub Ver.1.1
+
+const APPS = [
   {
     id: "stardom",
     name: "Stardom",
-    deadline: "2026-07-08",
-    tasks: [
-      { id: "attendance", type: "check", labelKey: "attendance" },
-      { id: "ads", type: "counter", labelKey: "ads", max: 30 },
-      { id: "freeVote", type: "check", labelKey: "freeVote" }
-    ]
-  },
-  {
-    id: "star-rematch",
-    name: "Star Rematch",
-    tasks: [
-      { id: "attendance", type: "check", labelKey: "attendance" },
-      { id: "fcAttendance", type: "check", labelKey: "fcAttendance" },
-      { id: "cheerComments", type: "counter", labelKey: "cheerComments", max: 10 },
-      { id: "likeComments", type: "check", labelKey: "likeComments" },
+    missions: [
+      {
+        id: "attendance",
+        type: "check",
+        labelKey: "mission.attendance"
+      },
       {
         id: "ads",
         type: "counter",
-        labelKey: "ads",
-        max: 60,
-        hourlyLimit: 10,
-        cooldownMinutes: 60
+        labelKey: "mission.ads",
+        max: 30
       },
-      { id: "freeVote", type: "check", labelKey: "freeVote" }
+      {
+        id: "freeVote",
+        type: "check",
+        labelKey: "mission.freeVote"
+      }
     ]
   },
   {
-    id: "jk-fandom",
+    id: "starRematch",
+    name: "Star Rematch",
+    missions: [
+      {
+        id: "attendance",
+        type: "check",
+        labelKey: "mission.attendance"
+      },
+      {
+        id: "fcAttendance",
+        type: "check",
+        labelKey: "mission.fcAttendance"
+      },
+      {
+        id: "supportComments",
+        type: "counter",
+        labelKey: "mission.supportComments",
+        max: 10
+      },
+      {
+        id: "commentLike",
+        type: "check",
+        labelKey: "mission.commentLike"
+      },
+      {
+        id: "freeVote",
+        type: "check",
+        labelKey: "mission.freeVote"
+      },
+      {
+        id: "ads",
+        type: "counter",
+        labelKey: "mission.ads",
+        max: 60,
+        hourlyLimit: 10,
+        cooldownMinutes: 60
+      }
+    ]
+  },
+  {
+    id: "jkFandom",
     name: "JK Fandom",
-    tasks: [
-      { id: "attendance", type: "check", labelKey: "attendance" },
-      { id: "ads", type: "counter", labelKey: "ads", max: 15 },
-      { id: "freeVote", type: "check", labelKey: "freeVote" }
+    missions: [
+      {
+        id: "attendance",
+        type: "check",
+        labelKey: "mission.attendance"
+      },
+      {
+        id: "ads",
+        type: "counter",
+        labelKey: "mission.ads",
+        max: 15
+      },
+      {
+        id: "freeVote",
+        type: "check",
+        labelKey: "mission.freeVote"
+      }
     ]
   }
 ];
