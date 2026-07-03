@@ -1,121 +1,103 @@
+// translations.js
+// BB Hub Ver.1.1 translations
+
 const TRANSLATIONS = {
+  ja: {
+    "app.title": "BB Hub",
+    "app.subtitle": "今日の投票ミッションをチェックしよう",
 
-  en: {
+    "lang.ja": "日本語",
+    "lang.en": "English",
+    "lang.ko": "한국어",
 
-    appTitle: "BB Hub",
-    appSubtitle: "Daily Voting Tracker",
+    "summary.title": "今日の進捗",
+    "summary.complete": "完了",
+    "summary.remaining": "残り",
 
-    slogan1: "Every vote matters.",
-    slogan2: "Every BB matters. 💙",
+    "mission.attendance": "出席",
+    "mission.fcAttendance": "FC出席",
+    "mission.supportComment": "応援コメント10個",
+    "mission.commentLike": "応援コメントにいいね",
+    "mission.freeVote": "無料投票",
+    "mission.ads": "広告",
 
-    today: "Today",
-    progress: "Today's Progress",
-    tasks: "Tasks",
+    "button.plus": "＋",
+    "button.minus": "－",
+    "button.reset": "今日の進捗をリセット",
 
-    attendance: "Attendance",
-    fcAttendance: "FC Attendance",
-    freeVote: "Free Vote",
-    ads: "Watch Ads",
-    cheerComments: "Cheer Comments",
-    likeComments: "Like Cheer Comments",
+    "timer.ready": "広告を再開できます",
+    "timer.cooldown": "次の広告まで",
+    "timer.start": "1時間タイマー開始",
+    "timer.limit": "1時間に10回まで",
 
-    openApp: "Open App",
-
-    completed: "Completed",
-    remaining: "Remaining",
-
-    reset: "Reset Today",
-
-    votingEnds: "Voting ends",
-
-    nextAds: "Next Ads",
-    notify: "Notify Me"
-
+    "status.complete": "COMPLETE",
+    "status.done": "完了",
+    "status.notDone": "未完了"
   },
 
-  ja: {
+  en: {
+    "app.title": "BB Hub",
+    "app.subtitle": "Track today’s voting missions",
 
-    appTitle: "BB Hub",
-    appSubtitle: "Daily Voting Tracker",
+    "lang.ja": "日本語",
+    "lang.en": "English",
+    "lang.ko": "한국어",
 
-    slogan1: "一票一票が力になる。",
-    slogan2: "すべてのBBが力になる。💙",
+    "summary.title": "Today’s Progress",
+    "summary.complete": "Completed",
+    "summary.remaining": "Remaining",
 
-    today: "今日",
-    progress: "今日の進捗",
-    tasks: "タスク",
+    "mission.attendance": "Attendance",
+    "mission.fcAttendance": "FC Attendance",
+    "mission.supportComment": "Support comments x10",
+    "mission.commentLike": "Like support comments",
+    "mission.freeVote": "Free vote",
+    "mission.ads": "Ads",
 
-    attendance: "出席",
-    fcAttendance: "FC出席",
-    freeVote: "無料投票",
-    ads: "広告",
-    cheerComments: "応援コメント",
-    likeComments: "応援コメントにいいね",
+    "button.plus": "+",
+    "button.minus": "-",
+    "button.reset": "Reset today’s progress",
 
-    openApp: "アプリを開く",
+    "timer.ready": "You can watch ads again",
+    "timer.cooldown": "Next ads available in",
+    "timer.start": "Start 1-hour timer",
+    "timer.limit": "Up to 10 ads per hour",
 
-    completed: "完了",
-    remaining: "残り",
-
-    reset: "今日をリセット",
-
-    votingEnds: "投票締切",
-
-    nextAds: "次の広告",
-    notify: "通知する"
-
+    "status.complete": "COMPLETE",
+    "status.done": "Done",
+    "status.notDone": "Not done"
   },
 
   ko: {
+    "app.title": "BB Hub",
+    "app.subtitle": "오늘의 투표 미션을 체크해요",
 
-    appTitle: "BB Hub",
-    appSubtitle: "Daily Voting Tracker",
+    "lang.ja": "日本語",
+    "lang.en": "English",
+    "lang.ko": "한국어",
 
-    slogan1: "모든 한 표가 소중합니다.",
-    slogan2: "모든 BB가 소중합니다. 💙",
+    "summary.title": "오늘의 진행 상황",
+    "summary.complete": "완료",
+    "summary.remaining": "남음",
 
-    today: "오늘",
-    progress: "오늘의 진행률",
-    tasks: "작업",
+    "mission.attendance": "출석",
+    "mission.fcAttendance": "FC 출석",
+    "mission.supportComment": "응원 댓글 10개",
+    "mission.commentLike": "응원 댓글 좋아요",
+    "mission.freeVote": "무료 투표",
+    "mission.ads": "광고",
 
-    attendance: "출석",
-    fcAttendance: "FC 출석",
-    freeVote: "무료 투표",
-    ads: "광고 보기",
-    cheerComments: "응원 댓글",
-    likeComments: "응원 댓글 좋아요",
+    "button.plus": "+",
+    "button.minus": "-",
+    "button.reset": "오늘 진행 상황 초기화",
 
-    openApp: "앱 열기",
+    "timer.ready": "광고를 다시 볼 수 있어요",
+    "timer.cooldown": "다음 광고까지",
+    "timer.start": "1시간 타이머 시작",
+    "timer.limit": "1시간에 최대 10회",
 
-    completed: "완료",
-    remaining: "남음",
-
-    reset: "오늘 초기화",
-
-    votingEnds: "투표 마감",
-
-    nextAds: "다음 광고",
-    notify: "알림"
-
+    "status.complete": "COMPLETE",
+    "status.done": "완료",
+    "status.notDone": "미완료"
   }
-
 };
-
-let currentLanguage =
-  localStorage.getItem("bbhub-language") || "en";
-
-function t(key) {
-
-  return TRANSLATIONS[currentLanguage][key] || key;
-
-}
-
-function setLanguage(lang) {
-
-  currentLanguage = lang;
-
-  localStorage.setItem("bbhub-language", lang);
-
-  render();
-
-}
