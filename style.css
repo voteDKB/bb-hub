@@ -1,6 +1,6 @@
-/* ===========================
+/* ==========================
    BB Hub Ver.1.1
-=========================== */
+========================== */
 
 *{
     margin:0;
@@ -8,300 +8,539 @@
     box-sizing:border-box;
 }
 
+:root{
+
+    --blue:#2563eb;
+    --blue2:#3b82f6;
+    --blue3:#60a5fa;
+
+    --bg:#edf4ff;
+
+    --card:#ffffff;
+
+    --text:#183153;
+
+    --sub:#6b7280;
+
+    --border:#dbeafe;
+
+    --success:#22c55e;
+
+}
+
 body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    background:#edf4ff;
-    color:#183153;
-    min-height:100vh;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
 }
 
-.app{
-    max-width:650px;
+.page{
+
+    width:min(700px,95%);
+
     margin:auto;
-    padding:20px 16px 50px;
+
+    padding:20px 0 40px;
+
 }
 
-/* ===========================
-   Header
-=========================== */
 
-.header{
-    background:linear-gradient(135deg,#1d4ed8,#2563eb,#3b82f6);
+/* ==========================
+   Hero
+========================== */
+
+.hero{
+
+    background:
+    linear-gradient(
+    135deg,
+    var(--blue),
+    var(--blue2),
+    var(--blue3));
+
     color:white;
-    border-radius:24px;
-    padding:28px 24px;
-    box-shadow:0 12px 35px rgba(37,99,235,.28);
-    margin-bottom:20px;
+
+    border-radius:28px;
+
+    padding:28px;
+
+    box-shadow:
+    0 10px 30px
+    rgba(37,99,235,.25);
+
 }
 
 .eyebrow{
-    opacity:.8;
+
     font-size:13px;
+
+    opacity:.85;
+
     letter-spacing:2px;
+
     text-transform:uppercase;
+
 }
 
-.header h1{
-    margin-top:6px;
-    font-size:34px;
+.hero h1{
+
+    margin-top:8px;
+
+    font-size:36px;
+
     font-weight:800;
+
 }
 
 .subtitle{
+
     margin-top:10px;
+
     opacity:.9;
-    line-height:1.5;
+
 }
 
-/* ===========================
-   Card
-=========================== */
 
-.language-card,
-.summary-card,
-.app-card{
-    background:white;
-    border-radius:20px;
-    padding:18px;
-    margin-bottom:18px;
-    box-shadow:0 8px 25px rgba(0,0,0,.07);
-}
-
-/* ===========================
+/* ==========================
    Language
-=========================== */
+========================== */
 
-.language-card{
+.language-switcher{
+
     display:flex;
+
     gap:10px;
+
+    margin-top:24px;
+
 }
 
 .lang-btn{
+
     flex:1;
+
     border:none;
+
     border-radius:12px;
-    padding:12px;
-    cursor:pointer;
-    background:#eef5ff;
-    color:#2563eb;
+
+    background:white;
+
+    color:var(--blue);
+
     font-weight:700;
-    transition:.25s;
+
+    cursor:pointer;
+
+    padding:12px;
+
+    transition:.2s;
+
 }
 
 .lang-btn:hover{
+
     transform:translateY(-2px);
+
 }
 
 .lang-btn.active{
-    background:#2563eb;
-    color:white;
+
+    background:#dbeafe;
+
 }
 
-/* ===========================
-   Progress
-=========================== */
 
-.summary-top{
+/* ==========================
+   Main
+========================== */
+
+.main{
+
+    margin-top:24px;
+
+}
+
+
+/* ==========================
+   Card
+========================== */
+
+.summary-card,
+.app-card{
+
+    background:var(--card);
+
+    border-radius:22px;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,.06);
+
+}
+
+
+/* ==========================
+   Summary
+========================== */
+
+.summary-head{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
 }
 
 .section-label{
-    color:#6b7280;
+
+    color:var(--sub);
+
     font-size:13px;
+
 }
 
-.percent{
-    font-size:28px;
+.summary-percent{
+
+    font-size:30px;
+
     font-weight:800;
-    color:#2563eb;
+
+    color:var(--blue);
+
 }
 
-.progress-bar{
-    margin:18px 0;
-    background:#dbeafe;
+.progress-track{
+
+    width:100%;
+
     height:14px;
+
     border-radius:999px;
+
+    background:#dbeafe;
+
     overflow:hidden;
+
+    margin:18px 0;
+
 }
 
 .progress-fill{
+
     width:0%;
+
     height:100%;
-    background:linear-gradient(90deg,#2563eb,#60a5fa);
-    transition:.4s;
+
+    background:
+    linear-gradient(
+    90deg,
+    var(--blue),
+    var(--blue3));
+
+    transition:.3s;
+
 }
 
-.summary-note{
-    color:#6b7280;
-    font-size:14px;
+.summary-detail{
+
+    color:var(--sub);
+
 }
 
-/* ===========================
-   App Card
-=========================== */
 
-.app-card{
-    overflow:hidden;
-}
+/* ==========================
+   App
+========================== */
 
 .app-header{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     margin-bottom:18px;
+
 }
 
 .app-title{
-    font-size:22px;
+
+    font-size:24px;
+
     font-weight:700;
+
 }
 
 .app-progress{
-    color:#2563eb;
-    font-weight:700;
+
     background:#eff6ff;
+
+    color:var(--blue);
+
     padding:6px 12px;
+
     border-radius:999px;
+
+    font-weight:700;
+
 }
 
-/* ===========================
-   Missions
-=========================== */
+
+/* ==========================
+   Mission
+========================== */
 
 .mission{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
-    padding:12px 0;
+
+    padding:14px 0;
+
     border-bottom:1px solid #eef2f7;
+
 }
 
 .mission:last-child{
+
     border:none;
+
 }
 
 .mission-left{
+
     display:flex;
+
     align-items:center;
+
     gap:12px;
+
 }
 
-.mission input[type=checkbox]{
+.mission input{
+
     width:20px;
+
     height:20px;
-    accent-color:#2563eb;
+
+    accent-color:var(--blue);
+
 }
+
+
+/* ==========================
+   Counter
+========================== */
 
 .counter{
+
     display:flex;
+
     align-items:center;
-    gap:10px;
+
+    gap:12px;
+
 }
 
 .counter button{
+
     width:34px;
+
     height:34px;
+
     border:none;
+
     border-radius:10px;
-    cursor:pointer;
-    background:#2563eb;
+
+    background:var(--blue);
+
     color:white;
+
     font-size:20px;
-    font-weight:bold;
+
+    cursor:pointer;
+
     transition:.2s;
+
 }
 
 .counter button:hover{
+
     transform:scale(1.05);
+
 }
 
 .counter-value{
-    width:60px;
+
+    min-width:70px;
+
     text-align:center;
+
     font-weight:700;
-    color:#183153;
+
 }
 
-/* ===========================
+
+/* ==========================
    Timer
-=========================== */
+========================== */
 
 .timer{
-    margin-top:12px;
-    padding:14px;
-    border-radius:14px;
+
+    margin-top:14px;
+
     background:#eef6ff;
-    color:#2563eb;
-    font-weight:700;
+
+    border-radius:14px;
+
+    padding:14px;
+
     text-align:center;
+
+    font-weight:700;
+
+    color:var(--blue);
+
 }
 
 .timer.ready{
+
     background:#dcfce7;
+
     color:#16a34a;
+
 }
 
-/* ===========================
+
+/* ==========================
+   Complete Message
+========================== */
+
+.complete-message{
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+    text-align:center;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+
+/* ==========================
    Reset
-=========================== */
+========================== */
 
 .reset-btn{
+
     width:100%;
+
     border:none;
-    border-radius:16px;
+
+    border-radius:18px;
+
     padding:16px;
-    cursor:pointer;
-    background:#2563eb;
+
+    background:var(--blue);
+
     color:white;
+
     font-size:16px;
+
     font-weight:700;
-    transition:.25s;
+
+    cursor:pointer;
+
+    transition:.2s;
+
 }
 
 .reset-btn:hover{
+
     background:#1d4ed8;
+
 }
 
-/* ===========================
-   COMPLETE
-=========================== */
 
-.complete{
-    color:#16a34a;
-    font-weight:700;
-}
+/* ==========================
+   Complete Card
+========================== */
 
 .completed-card{
+
     border:2px solid #86efac;
+
 }
 
-/* ===========================
+
+/* ==========================
    Responsive
-=========================== */
+========================== */
 
 @media(max-width:600px){
 
-.header{
-    padding:24px 20px;
+.hero{
+
+padding:22px;
+
 }
 
-.header h1{
-    font-size:30px;
+.hero h1{
+
+font-size:30px;
+
 }
 
 .app-title{
-    font-size:20px;
+
+font-size:20px;
+
 }
 
-.percent{
-    font-size:24px;
+.summary-percent{
+
+font-size:24px;
+
 }
 
 .counter button{
-    width:30px;
-    height:30px;
+
+width:30px;
+
+height:30px;
+
 }
 
 }
