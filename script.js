@@ -166,28 +166,32 @@ function renderApps() {
         });
       }
 
-      if (mission.type === "counter") {
+           if (mission.type === "counter") {
+        missionElement.classList.add("mission-counter");
+
         missionElement.innerHTML = `
-          <div class="mission-left">
-            <span data-i18n="${mission.labelKey}">${t(mission.labelKey)}</span>
+          <div class="counter-panel">
+            <div class="counter-label" data-i18n="${mission.labelKey}">
+              ${t(mission.labelKey)}
+            </div>
+
+            <div class="counter-progress">
+              <div
+                class="counter-progress-fill"
+                id="counterProgress-${app.id}-${mission.id}">
+              </div>
+            </div>
+
+            <div class="counter-bottom">
+              <button type="button" aria-label="minus" data-action="minus">−</button>
+
+              <span class="counter-value" id="counter-${app.id}-${mission.id}">
+                0 / ${mission.max}
+              </span>
+
+              <button type="button" aria-label="plus" data-action="plus">＋</button>
+            </div>
           </div>
-
-         <div class="counter-wrapper">
-  <div class="counter">
-    <button type="button" aria-label="minus" data-action="minus">−</button>
-    <span class="counter-value" id="counter-${app.id}-${mission.id}">
-      0 / ${mission.max}
-    </span>
-    <button type="button" aria-label="plus" data-action="plus">＋</button>
-  </div>
-
-  <div class="counter-progress">
-    <div
-      class="counter-progress-fill"
-      id="counterProgress-${app.id}-${mission.id}">
-    </div>
-  </div>
-</div>
         `;
 
         missionList.appendChild(missionElement);
