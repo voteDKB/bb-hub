@@ -359,7 +359,31 @@ body{
     gap:12px;
 
 }
+/* ==========================
+   Counter Progress
+========================== */
 
+.counter-wrapper{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:8px;
+}
+
+.counter-progress{
+    width:120px;
+    height:8px;
+    background:#dbeafe;
+    border-radius:999px;
+    overflow:hidden;
+}
+
+.counter-progress-fill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#2563eb,#60a5fa);
+    transition:.25s;
+}
 .counter button{
 
     width:34px;
