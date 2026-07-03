@@ -3,63 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>BB Hub</title>
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <div class="app">
+  <div class="page">
 
-    <header class="header">
-      <div class="header-inner">
-        <p class="eyebrow">DKB Voting Tracker</p>
-        <h1 data-i18n="app.title">BB Hub</h1>
-        <p class="subtitle" data-i18n="app.subtitle">
-          今日の投票ミッションをチェックしよう
-        </p>
+    <header class="hero">
+      <p class="eyebrow">DKB Voting Tracker</p>
+      <h1 data-i18n="app.title">BB Hub</h1>
+      <p class="subtitle" data-i18n="app.subtitle">Today's Voting Tracker</p>
+
+      <div class="language-switcher" aria-label="Language">
+        <button type="button" class="lang-btn active" data-lang="ja">日本語</button>
+        <button type="button" class="lang-btn" data-lang="en">English</button>
+        <button type="button" class="lang-btn" data-lang="ko">한국어</button>
       </div>
     </header>
 
     <main class="main">
 
-      <section class="language-card">
-        <button class="lang-btn active" data-lang="ja">日本語</button>
-        <button class="lang-btn" data-lang="en">English</button>
-        <button class="lang-btn" data-lang="ko">한국어</button>
-      </section>
-
       <section class="summary-card">
-        <div class="summary-top">
+        <div class="summary-head">
           <div>
             <p class="section-label" data-i18n="summary.title">今日の進捗</p>
             <h2 id="totalProgressText">0 / 0</h2>
           </div>
-          <div class="percent" id="totalPercent">0%</div>
+
+          <div class="summary-percent" id="totalPercent">0%</div>
         </div>
 
-        <div class="progress-bar">
+        <div class="progress-track" aria-hidden="true">
           <div class="progress-fill" id="totalProgressBar"></div>
         </div>
 
-        <p class="summary-note">
+        <p class="summary-detail">
           <span id="completedCount">0</span>
-          <span data-i18n="summary.complete">完了</span> /
+          <span data-i18n="summary.complete">完了</span>
+          /
           <span id="remainingCount">0</span>
           <span data-i18n="summary.remaining">残り</span>
         </p>
+      </section>
+
+      <section id="completeMessage" class="complete-message hidden">
+        <span data-i18n="message.complete">🎉 今日のミッション達成！</span>
       </section>
 
       <section id="appList" class="app-list">
         <!-- script.jsで自動生成 -->
       </section>
 
-      <button id="resetBtn" class="reset-btn" data-i18n="button.reset">
+      <button type="button" id="resetBtn" class="reset-btn" data-i18n="button.reset">
         今日の進捗をリセット
       </button>
 
     </main>
-
   </div>
 
   <script src="translations.js"></script>
