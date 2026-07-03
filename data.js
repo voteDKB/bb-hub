@@ -5,6 +5,8 @@ const APPS = [
   {
     id: "stardom",
     name: "Stardom",
+    icon: "S",
+    deadline: "2026-07-08T15:00:00+09:00",
     missions: [
       {
         id: "attendance",
@@ -27,6 +29,8 @@ const APPS = [
   {
     id: "starRematch",
     name: "Star Rematch",
+    icon: "R",
+    deadline: "2026-07-13T15:00:00+09:00",
     missions: [
       {
         id: "attendance",
@@ -67,6 +71,8 @@ const APPS = [
   {
     id: "jkFandom",
     name: "JK Fandom",
+    icon: "★",
+    deadline: "2026-07-13T15:00:00+09:00",
     missions: [
       {
         id: "attendance",
