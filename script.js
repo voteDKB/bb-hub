@@ -172,13 +172,22 @@ function renderApps() {
             <span data-i18n="${mission.labelKey}">${t(mission.labelKey)}</span>
           </div>
 
-          <div class="counter">
-            <button type="button" aria-label="minus" data-action="minus">−</button>
-            <span class="counter-value" id="counter-${app.id}-${mission.id}">
-              0 / ${mission.max}
-            </span>
-            <button type="button" aria-label="plus" data-action="plus">＋</button>
-          </div>
+         <div class="counter-wrapper">
+  <div class="counter">
+    <button type="button" aria-label="minus" data-action="minus">−</button>
+    <span class="counter-value" id="counter-${app.id}-${mission.id}">
+      0 / ${mission.max}
+    </span>
+    <button type="button" aria-label="plus" data-action="plus">＋</button>
+  </div>
+
+  <div class="counter-progress">
+    <div
+      class="counter-progress-fill"
+      id="counterProgress-${app.id}-${mission.id}">
+    </div>
+  </div>
+</div>
         `;
 
         missionList.appendChild(missionElement);
@@ -326,9 +335,21 @@ function updateMissionDisplay(app, mission, missionState, completed) {
   if (mission.type === "counter") {
     const counter = document.getElementById(`counter-${app.id}-${mission.id}`);
 
-    if (counter) {
-      counter.textContent = `${missionState.count} / ${mission.max}`;
-    }
+   if (counter) {
+  counter.textContent = `${missionState.count} / ${mission.max}`;
+}
+
+const counterProgress = document.getElementById(
+  `counterProgress-${app.id}-${mission.id}`
+);
+
+if (counterProgress) {
+  const percent = mission.max === 0
+    ? 0
+    : Math.min(100, Math.round((missionState.count / mission.max) * 100));
+
+  counterProgress.style.width = `${percent}%`;
+}
   }
 
   if (mission.hourlyLimit && mission.cooldownMinutes) {
