@@ -1,33 +1,45 @@
 // script.js
-// BB Hub Ver.1.1
+// BB Hub Ver.1.1 FINAL
 
-let currentLang = localStorage.getItem("bbhub_lang") || "ja";
-let state = JSON.parse(localStorage.getItem("bbhub_state")) || {};
+const STORAGE_KEY = "bbhub_v11_state";
+const LANG_KEY = "bbhub_v11_lang";
+
+let currentLang = localStorage.getItem(LANG_KEY) || "ja";
+let state = loadState();
 let timerInterval = null;
 
-const STORAGE_KEY = "bbhub_state";
-const LANG_KEY = "bbhub_lang";
-
 document.addEventListener("DOMContentLoaded", () => {
-  initializeState();
+  prepareState();
   renderApps();
+  bindLanguageButtons();
+  bindResetButton();
   applyLanguage();
-  updateAllProgress();
+  updateAll();
   startTimerLoop();
-
-  document.getElementById("resetBtn").addEventListener("click", resetToday);
-
-  document.querySelectorAll(".lang-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      currentLang = btn.dataset.lang;
-      localStorage.setItem(LANG_KEY, currentLang);
-      applyLanguage();
-    });
-  });
 });
 
-function initializeState() {
-  const today = getTodayKey();
+function loadState() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function todayKey() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const date = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${date}`;
+}
+
+function prepareState() {
+  const today = todayKey();
 
   if (!state.date || state.date !== today) {
     state = {
@@ -37,15 +49,17 @@ function initializeState() {
   }
 
   APPS.forEach((app) => {
-    if (!state.apps[app.id]) state.apps[app.id] = {};
+    if (!state.apps[app.id]) {
+      state.apps[app.id] = {};
+    }
 
     app.missions.forEach((mission) => {
       if (!state.apps[app.id][mission.id]) {
         state.apps[app.id][mission.id] = {
           done: false,
           count: 0,
-          cooldownStart: null,
-          hourlyCount: 0
+          hourCount: 0,
+          hourStartedAt: null
         };
       }
     });
@@ -54,295 +68,389 @@ function initializeState() {
   saveState();
 }
 
+function t(key) {
+  return TRANSLATIONS[currentLang]?.[key] || TRANSLATIONS.ja?.[key] || key;
+}
+
+function bindLanguageButtons() {
+  document.querySelectorAll(".lang-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      currentLang = button.dataset.lang;
+      localStorage.setItem(LANG_KEY, currentLang);
+      applyLanguage();
+      updateAll();
+    });
+  });
+}
+
+function bindResetButton() {
+  const resetBtn = document.getElementById("resetBtn");
+  if (!resetBtn) return;
+
+  resetBtn.addEventListener("click", () => {
+    const ok = confirm(t("button.reset"));
+    if (!ok) return;
+
+    state = {
+      date: todayKey(),
+      apps: {}
+    };
+
+    prepareState();
+    renderApps();
+    applyLanguage();
+    updateAll();
+  });
+}
+
+function applyLanguage() {
+  document.documentElement.lang = currentLang;
+
+  document.querySelectorAll(".lang-btn").forEach((button) => {
+    button.classList.toggle("active", button.dataset.lang === currentLang);
+  });
+
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.dataset.i18n;
+    element.textContent = t(key);
+  });
+}
 function renderApps() {
   const appList = document.getElementById("appList");
+  if (!appList) return;
+
   appList.innerHTML = "";
 
   APPS.forEach((app) => {
     const card = document.createElement("article");
     card.className = "app-card";
-    card.id = `card-${app.id}`;
+    card.id = `app-${app.id}`;
 
     card.innerHTML = `
       <div class="app-header">
         <h3 class="app-title">${app.name}</h3>
-        <div class="app-progress" id="progress-${app.id}">0 / 0</div>
+        <div class="app-progress" id="appProgress-${app.id}">0 / 0</div>
       </div>
-      <div class="missions" id="missions-${app.id}"></div>
+      <div class="mission-list" id="missionList-${app.id}"></div>
     `;
 
     appList.appendChild(card);
 
-    const missionArea = document.getElementById(`missions-${app.id}`);
+    const missionList = document.getElementById(`missionList-${app.id}`);
 
     app.missions.forEach((mission) => {
-      const missionEl = document.createElement("div");
-      missionEl.className = "mission";
-      missionEl.id = `mission-${app.id}-${mission.id}`;
+      const missionElement = document.createElement("div");
+      missionElement.className = "mission";
+      missionElement.id = `mission-${app.id}-${mission.id}`;
 
       if (mission.type === "check") {
-        missionEl.innerHTML = `
+        missionElement.innerHTML = `
           <label class="mission-left">
             <input
               type="checkbox"
-              id="${app.id}-${mission.id}"
+              id="input-${app.id}-${mission.id}"
               ${state.apps[app.id][mission.id].done ? "checked" : ""}
             />
             <span data-i18n="${mission.labelKey}">${t(mission.labelKey)}</span>
           </label>
-          <span class="mission-status" id="status-${app.id}-${mission.id}"></span>
+          <span class="mission-checkmark" id="checkmark-${app.id}-${mission.id}"></span>
         `;
 
-        missionArea.appendChild(missionEl);
+        missionList.appendChild(missionElement);
 
-        document
-          .getElementById(`${app.id}-${mission.id}`)
-          .addEventListener("change", (e) => {
-            state.apps[app.id][mission.id].done = e.target.checked;
-            saveState();
-            updateAllProgress();
-          });
+        const checkbox = document.getElementById(`input-${app.id}-${mission.id}`);
+        checkbox.addEventListener("change", () => {
+          state.apps[app.id][mission.id].done = checkbox.checked;
+          saveState();
+          updateAll();
+        });
       }
 
       if (mission.type === "counter") {
-        missionEl.innerHTML = `
+        missionElement.innerHTML = `
           <div class="mission-left">
             <span data-i18n="${mission.labelKey}">${t(mission.labelKey)}</span>
           </div>
+
           <div class="counter">
-            <button type="button" data-action="minus">−</button>
-            <span class="counter-value" id="count-${app.id}-${mission.id}">
-              ${state.apps[app.id][mission.id].count} / ${mission.max}
+            <button type="button" aria-label="minus" data-action="minus">−</button>
+            <span class="counter-value" id="counter-${app.id}-${mission.id}">
+              0 / ${mission.max}
             </span>
-            <button type="button" data-action="plus">＋</button>
+            <button type="button" aria-label="plus" data-action="plus">＋</button>
           </div>
         `;
 
-        missionArea.appendChild(missionEl);
+        missionList.appendChild(missionElement);
 
-        const minusBtn = missionEl.querySelector('[data-action="minus"]');
-        const plusBtn = missionEl.querySelector('[data-action="plus"]');
+        const minusButton = missionElement.querySelector('[data-action="minus"]');
+        const plusButton = missionElement.querySelector('[data-action="plus"]');
 
-        minusBtn.addEventListener("click", () => {
-          updateCounter(app, mission, -1);
+        minusButton.addEventListener("click", () => {
+          changeCounter(app, mission, -1);
         });
 
-        plusBtn.addEventListener("click", () => {
-          updateCounter(app, mission, 1);
+        plusButton.addEventListener("click", () => {
+          changeCounter(app, mission, 1);
         });
 
-        if (mission.cooldownMinutes) {
-          const timerEl = document.createElement("div");
-          timerEl.className = "timer";
-          timerEl.id = `timer-${app.id}-${mission.id}`;
-          missionArea.appendChild(timerEl);
+        if (mission.hourlyLimit && mission.cooldownMinutes) {
+          const timerBox = document.createElement("div");
+          timerBox.className = "timer";
+          timerBox.id = `timer-${app.id}-${mission.id}`;
+          timerBox.textContent = t("timer.ready");
+          missionList.appendChild(timerBox);
         }
       }
     });
   });
 }
 
-function updateCounter(app, mission, amount) {
+function changeCounter(app, mission, amount) {
   const missionState = state.apps[app.id][mission.id];
 
-  if (amount > 0 && mission.hourlyLimit) {
-    const now = Date.now();
+  if (amount > 0 && mission.hourlyLimit && mission.cooldownMinutes) {
+    const canAdd = handleHourlyLimit(missionState, mission);
 
-    if (!missionState.cooldownStart) {
-      missionState.cooldownStart = now;
-      missionState.hourlyCount = 0;
-    }
-
-    const elapsed = now - missionState.cooldownStart;
-    const cooldownMs = mission.cooldownMinutes * 60 * 1000;
-
-    if (elapsed >= cooldownMs) {
-      missionState.cooldownStart = now;
-      missionState.hourlyCount = 0;
-    }
-
-    if (missionState.hourlyCount >= mission.hourlyLimit) {
-      saveState();
-      updateAllProgress();
+    if (!canAdd) {
+      updateAll();
       return;
     }
-
-    missionState.hourlyCount += 1;
   }
 
   missionState.count += amount;
 
-  if (missionState.count < 0) missionState.count = 0;
-  if (missionState.count > mission.max) missionState.count = mission.max;
+  if (missionState.count < 0) {
+    missionState.count = 0;
+  }
+
+  if (missionState.count > mission.max) {
+    missionState.count = mission.max;
+  }
 
   missionState.done = missionState.count >= mission.max;
 
   saveState();
-  updateAllProgress();
+  updateAll();
 }
 
-function updateAllProgress() {
-  let total = 0;
-  let completed = 0;
+function handleHourlyLimit(missionState, mission) {
+  const now = Date.now();
+  const cooldownMs = mission.cooldownMinutes * 60 * 1000;
+
+  if (!missionState.hourStartedAt) {
+    missionState.hourStartedAt = now;
+    missionState.hourCount = 0;
+  }
+
+  const elapsed = now - missionState.hourStartedAt;
+
+  if (elapsed >= cooldownMs) {
+    missionState.hourStartedAt = now;
+    missionState.hourCount = 0;
+  }
+
+  if (missionState.hourCount >= mission.hourlyLimit) {
+    return false;
+  }
+
+  missionState.hourCount += 1;
+  return true;
+}
+function updateAll() {
+  prepareState();
+
+  let totalMissions = 0;
+  let completedMissions = 0;
 
   APPS.forEach((app) => {
     let appTotal = 0;
     let appCompleted = 0;
 
     app.missions.forEach((mission) => {
-      total++;
+      totalMissions++;
       appTotal++;
 
       const missionState = state.apps[app.id][mission.id];
-      const isDone =
-        mission.type === "check"
-          ? missionState.done
-          : missionState.count >= mission.max;
+      const completed = isMissionComplete(missionState, mission);
 
-      if (isDone) {
-        completed++;
+      if (completed) {
+        completedMissions++;
         appCompleted++;
       }
 
-      updateMissionUI(app, mission, isDone);
+      updateMissionDisplay(app, mission, missionState, completed);
     });
 
-    document.getElementById(
-      `progress-${app.id}`
-    ).textContent = `${appCompleted} / ${appTotal}`;
-
-    const card = document.getElementById(`card-${app.id}`);
-    card.classList.toggle("completed-card", appCompleted === appTotal);
+    updateAppDisplay(app, appCompleted, appTotal);
   });
 
+  updateSummaryDisplay(completedMissions, totalMissions);
+  updateCompleteMessage(completedMissions, totalMissions);
+
+  saveState();
+}
+
+function isMissionComplete(missionState, mission) {
+  if (mission.type === "check") {
+    return missionState.done === true;
+  }
+
+  if (mission.type === "counter") {
+    return missionState.count >= mission.max;
+  }
+
+  return false;
+}
+
+function updateMissionDisplay(app, mission, missionState, completed) {
+  const missionElement = document.getElementById(`mission-${app.id}-${mission.id}`);
+
+  if (missionElement) {
+    missionElement.classList.toggle("complete", completed);
+  }
+
+  if (mission.type === "check") {
+    const checkbox = document.getElementById(`input-${app.id}-${mission.id}`);
+    const checkmark = document.getElementById(`checkmark-${app.id}-${mission.id}`);
+
+    if (checkbox) {
+      checkbox.checked = missionState.done;
+    }
+
+    if (checkmark) {
+      checkmark.textContent = completed ? "✓" : "";
+    }
+  }
+
+  if (mission.type === "counter") {
+    const counter = document.getElementById(`counter-${app.id}-${mission.id}`);
+
+    if (counter) {
+      counter.textContent = `${missionState.count} / ${mission.max}`;
+    }
+  }
+
+  if (mission.hourlyLimit && mission.cooldownMinutes) {
+    updateTimerDisplay(app, mission, missionState);
+  }
+}
+
+function updateAppDisplay(app, completed, total) {
+  const progress = document.getElementById(`appProgress-${app.id}`);
+  const card = document.getElementById(`app-${app.id}`);
+
+  if (progress) {
+    progress.textContent = `${completed} / ${total}`;
+  }
+
+  if (card) {
+    card.classList.toggle("completed-card", completed === total);
+  }
+}
+
+function updateSummaryDisplay(completed, total) {
   const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
   const remaining = total - completed;
 
-  document.getElementById("totalProgressText").textContent = `${completed} / ${total}`;
-  document.getElementById("totalPercent").textContent = `${percent}%`;
-  document.getElementById("totalProgressBar").style.width = `${percent}%`;
-  document.getElementById("completedCount").textContent = completed;
-  document.getElementById("remainingCount").textContent = remaining;
-}
+  const totalProgressText = document.getElementById("totalProgressText");
+  const totalPercent = document.getElementById("totalPercent");
+  const totalProgressBar = document.getElementById("totalProgressBar");
+  const completedCount = document.getElementById("completedCount");
+  const remainingCount = document.getElementById("remainingCount");
 
-function updateMissionUI(app, mission, isDone) {
-  const missionState = state.apps[app.id][mission.id];
-
-  if (mission.type === "counter") {
-    const countEl = document.getElementById(`count-${app.id}-${mission.id}`);
-    if (countEl) {
-      countEl.textContent = `${missionState.count} / ${mission.max}`;
-    }
+  if (totalProgressText) {
+    totalProgressText.textContent = `${completed} / ${total}`;
   }
 
-  const missionEl = document.getElementById(`mission-${app.id}-${mission.id}`);
-  if (missionEl) {
-    missionEl.classList.toggle("complete", isDone);
+  if (totalPercent) {
+    totalPercent.textContent = `${percent}%`;
   }
 
-  const statusEl = document.getElementById(`status-${app.id}-${mission.id}`);
-  if (statusEl) {
-    statusEl.textContent = isDone ? "✓" : "";
+  if (totalProgressBar) {
+    totalProgressBar.style.width = `${percent}%`;
   }
 
-  if (mission.cooldownMinutes) {
-    updateTimer(app, mission);
+  if (completedCount) {
+    completedCount.textContent = completed;
+  }
+
+  if (remainingCount) {
+    remainingCount.textContent = remaining;
   }
 }
 
-function updateTimer(app, mission) {
-  const timerEl = document.getElementById(`timer-${app.id}-${mission.id}`);
-  if (!timerEl) return;
+function updateCompleteMessage(completed, total) {
+  const message = document.getElementById("completeMessage");
+  if (!message) return;
 
-  const missionState = state.apps[app.id][mission.id];
-
-  if (!missionState.cooldownStart) {
-    timerEl.textContent = `${t("timer.limit")} / ${t("timer.ready")}`;
-    timerEl.classList.add("ready");
-    return;
-  }
+  const allCompleted = total > 0 && completed === total;
+  message.classList.toggle("hidden", !allCompleted);
+}
+function updateTimerDisplay(app, mission, missionState) {
+  const timer = document.getElementById(`timer-${app.id}-${mission.id}`);
+  if (!timer) return;
 
   const now = Date.now();
   const cooldownMs = mission.cooldownMinutes * 60 * 1000;
-  const elapsed = now - missionState.cooldownStart;
-  const remaining = cooldownMs - elapsed;
 
-  if (remaining <= 0 || missionState.hourlyCount < mission.hourlyLimit) {
-    timerEl.textContent = `${t("timer.limit")} / ${t("timer.ready")}`;
-    timerEl.classList.add("ready");
-
-    if (remaining <= 0) {
-      missionState.cooldownStart = null;
-      missionState.hourlyCount = 0;
-      saveState();
-    }
-
+  if (!missionState.hourStartedAt || missionState.hourCount < mission.hourlyLimit) {
+    timer.classList.add("ready");
+    timer.textContent = `${t("timer.limit")} / ${t("timer.ready")}`;
     return;
   }
 
-  timerEl.classList.remove("ready");
-  timerEl.textContent = `${t("timer.cooldown")} ${formatTime(remaining)}`;
+  const elapsed = now - missionState.hourStartedAt;
+  const remaining = cooldownMs - elapsed;
+
+  if (remaining <= 0) {
+    missionState.hourStartedAt = null;
+    missionState.hourCount = 0;
+    saveState();
+
+    timer.classList.add("ready");
+    timer.textContent = `${t("timer.limit")} / ${t("timer.ready")}`;
+    return;
+  }
+
+  timer.classList.remove("ready");
+  timer.textContent = `${t("timer.cooldown")} ${formatTime(remaining)}`;
 }
 
 function startTimerLoop() {
-  if (timerInterval) clearInterval(timerInterval);
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
 
   timerInterval = setInterval(() => {
+    const currentDate = todayKey();
+
+    if (state.date !== currentDate) {
+      state = {
+        date: currentDate,
+        apps: {}
+      };
+
+      prepareState();
+      renderApps();
+      applyLanguage();
+      updateAll();
+      return;
+    }
+
     APPS.forEach((app) => {
       app.missions.forEach((mission) => {
-        if (mission.cooldownMinutes) {
-          updateTimer(app, mission);
+        if (mission.hourlyLimit && mission.cooldownMinutes) {
+          const missionState = state.apps[app.id][mission.id];
+          updateTimerDisplay(app, mission, missionState);
         }
       });
     });
   }, 1000);
 }
 
-function applyLanguage() {
-  document.documentElement.lang = currentLang;
-
-  document.querySelectorAll(".lang-btn").forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.lang === currentLang);
-  });
-
-  document.querySelectorAll("[data-i18n]").forEach((el) => {
-    const key = el.dataset.i18n;
-    el.textContent = t(key);
-  });
-
-  updateAllProgress();
-}
-
-function t(key) {
-  return TRANSLATIONS[currentLang]?.[key] || TRANSLATIONS.ja[key] || key;
-}
-
-function resetToday() {
-  const ok = confirm(t("button.reset"));
-  if (!ok) return;
-
-  state = {
-    date: getTodayKey(),
-    apps: {}
-  };
-
-  initializeState();
-  renderApps();
-  applyLanguage();
-  updateAllProgress();
-}
-
-function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-function getTodayKey() {
-  const now = new Date();
-  return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-}
-
 function formatTime(ms) {
-  const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+  const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
   const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
   const seconds = String(totalSeconds % 60).padStart(2, "0");
 
