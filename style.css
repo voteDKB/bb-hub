@@ -583,7 +583,70 @@ body{
 /* ==========================
    Responsive
 ========================== */
+.app-title-wrap{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
 
+.app-icon{
+    width:34px;
+    height:34px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    color:white;
+    font-weight:800;
+    background:linear-gradient(135deg,#60a5fa,#2563eb);
+}
+
+.deadline-box{
+    margin:12px 0 18px;
+    padding:14px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#eff6ff,#ffffff);
+    border:1px solid #dbeafe;
+}
+
+.deadline-label{
+    display:block;
+    color:#6b7280;
+    font-size:13px;
+    margin-bottom:4px;
+}
+
+.deadline-time{
+    display:block;
+    color:#2563eb;
+    font-size:22px;
+}
+
+.deadline-box.warning{
+    background:#fff7ed;
+    border-color:#fed7aa;
+}
+
+.deadline-box.warning .deadline-time{
+    color:#f97316;
+}
+
+.deadline-box.urgent{
+    background:#fef2f2;
+    border-color:#fecaca;
+}
+
+.deadline-box.urgent .deadline-time{
+    color:#dc2626;
+}
+
+.deadline-box.closed{
+    background:#f3f4f6;
+    border-color:#d1d5db;
+}
+
+.deadline-box.closed .deadline-time{
+    color:#6b7280;
+}
 @media(max-width:600px){
 
 .hero{
