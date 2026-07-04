@@ -531,3 +531,4 @@ function updateDeadlineDisplay(app) {
     timeEl.textContent = `${days}日 ${hours}:${minutes}:${seconds}`;
   }
 }
+
