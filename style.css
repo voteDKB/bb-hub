@@ -461,17 +461,20 @@ body{
 }
 
 .counter-progress{
-    width:120px;
-    height:8px;
+    width:100%;
+    height:10px;
     background:#dbeafe;
     border-radius:999px;
     overflow:hidden;
+    margin:10px 0 14px;
 }
 
 .counter-progress-fill{
+    display:block;
     width:0%;
     height:100%;
     background:linear-gradient(90deg,#2563eb,#60a5fa);
+    border-radius:999px;
     transition:.25s;
 }
 /* ==========================
