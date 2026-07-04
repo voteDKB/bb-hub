@@ -80,25 +80,41 @@ body{
 }
 
 .hero-decoration{
-
-    position:absolute;
-
-    right:24px;
-
-    top:22px;
-
-    width:165px;
-
-    opacity:.30;
-
-    pointer-events:none;
+  position:absolute;
+  right:22px;
+  top:20px;
+  width:170px;
+  opacity:.36;
+  pointer-events:none;
 }
 
 .hero-decoration svg{
+  width:100%;
+  height:auto;
+}
 
-    width:100%;
+.ballot-paper{
+  transform-origin:110px 62px;
+  animation:dropBallot 2.8s ease-in-out infinite;
+}
 
-    height:auto;
+@keyframes dropBallot{
+  0%{
+    transform:translateY(-12px) rotate(-12deg);
+    opacity:.15;
+  }
+  30%{
+    transform:translateY(0) rotate(-12deg);
+    opacity:.75;
+  }
+  55%{
+    transform:translateY(24px) rotate(-4deg);
+    opacity:.55;
+  }
+  100%{
+    transform:translateY(-12px) rotate(-12deg);
+    opacity:.15;
+  }
 }
 .eyebrow{
 
