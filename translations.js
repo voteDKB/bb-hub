@@ -23,9 +23,9 @@ const TRANSLATIONS = {
     "timer.cooldown": "次の広告まで",
     "timer.limit": "1時間 / 10回",
 
-    "message.complete": "🎉 今日のミッション達成！"
+    "message.complete": "🎉 今日のミッション達成！",
     "deadline.label": "投票終了まで",
-    "deadline.closed": "投票終了"
+    "deadline.closed": "投票終了",
   },
 
   en: {
@@ -49,9 +49,9 @@ const TRANSLATIONS = {
     "timer.cooldown": "Next Ads In",
     "timer.limit": "10 Ads / Hour",
 
-    "message.complete": "🎉 Today's Missions Complete!"
+    "message.complete": "🎉 Today's Missions Complete!",
     "deadline.label": "Voting ends in",
-    "deadline.closed": "Closed"
+    "deadline.closed": "Closed",
   },
 
   ko: {
@@ -75,8 +75,8 @@ const TRANSLATIONS = {
     "timer.cooldown": "다음 광고까지",
     "timer.limit": "1시간 / 10회",
 
-    "message.complete": "🎉 오늘의 미션 완료!"
+    "message.complete": "🎉 오늘의 미션 완료!",
     "deadline.label": "투표 종료까지",
-    "deadline.closed": "종료됨"
+    "deadline.closed": "종료됨",
   }
 };
