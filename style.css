@@ -160,6 +160,7 @@ body{
 .app-title{
   font-size:22px;
   font-weight:900;
+  letter-spacing:.3px;
 }
 
 .app-progress{
@@ -187,6 +188,7 @@ body{
   box-shadow:0 8px 16px rgba(0,0,0,.16);
   position:relative;
   overflow:hidden;
+   transform:translateY(-1px);
 }
 
 .app-icon::after{
