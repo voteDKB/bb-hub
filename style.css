@@ -506,7 +506,20 @@ body{
     color:#16a34a;
 
 }
+.timer-skip-btn{
+    margin-top:10px;
+    border:none;
+    border-radius:999px;
+    padding:8px 14px;
+    background:#ffffff;
+    color:#2563eb;
+    font-weight:700;
+    cursor:pointer;
+}
 
+.timer-skip-btn:hover{
+    background:#dbeafe;
+}
 
 /* ==========================
    Complete Message
