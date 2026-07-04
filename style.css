@@ -412,6 +412,24 @@ body{
 .completed-card{
   border:2px solid #86efac;
 }
+/* ==========================
+   App Card Theme
+========================== */
+
+#app-stardom{
+    background:linear-gradient(180deg,#ffffff,#fff4f8);
+    border:1px solid #ffd2e3;
+}
+
+#app-starRematch{
+    background:linear-gradient(180deg,#ffffff,#fff3f6);
+    border:1px solid #ffc7da;
+}
+
+#app-jkFandom{
+    background:linear-gradient(180deg,#ffffff,#f6f4ff);
+    border:1px solid #ddd6fe;
+}
 
 /* Mobile */
 
