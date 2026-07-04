@@ -221,6 +221,14 @@ function changeCounter(app, mission, amount) {
     }
   }
 
+  if (amount < 0 && mission.hourlyLimit && mission.cooldownMinutes) {
+    missionState.hourCount = Math.max(0, missionState.hourCount - 1);
+
+    if (missionState.hourCount < mission.hourlyLimit) {
+      missionState.hourStartedAt = null;
+    }
+  }
+
   missionState.count += amount;
 
   if (missionState.count < 0) {
