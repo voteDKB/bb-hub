@@ -79,22 +79,26 @@ body{
             transparent 70%);
 }
 
-.hero::after{
-
-    content:"✦   ♡   ✧";
+.hero-decoration{
 
     position:absolute;
 
-    right:28px;
-    top:28px;
+    right:24px;
 
-    font-size:34px;
+    top:22px;
 
-    font-weight:700;
+    width:165px;
 
-    letter-spacing:18px;
+    opacity:.30;
 
-    color:rgba(255,255,255,.18);
+    pointer-events:none;
+}
+
+.hero-decoration svg{
+
+    width:100%;
+
+    height:auto;
 }
 .eyebrow{
 
