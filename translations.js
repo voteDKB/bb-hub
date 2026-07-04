@@ -20,6 +20,7 @@ const TRANSLATIONS = {
     "timer.ready": "広告を再開できます",
     "timer.cooldown": "次の広告まで",
     "timer.limit": "1時間 / 10回",
+    "timer.skip": "タイマーをスキップ",
 
     "message.complete": "🎉 今日のミッション達成！",
     "deadline.label": "投票終了まで",
@@ -44,6 +45,7 @@ const TRANSLATIONS = {
     "timer.ready": "Ads Available",
     "timer.cooldown": "Next Ads In",
     "timer.limit": "10 Ads / Hour",
+    "timer.skip": "Skip timer",
 
     "message.complete": "🎉 Today's Missions Complete!",
     "deadline.label": "Voting ends in",
@@ -69,6 +71,7 @@ const TRANSLATIONS = {
     "timer.ready": "광고를 다시 볼 수 있습니다",
     "timer.cooldown": "다음 광고까지",
     "timer.limit": "1시간 / 10회",
+    "timer.skip": "타이머 건너뛰기",
 
     "message.complete": "🎉 오늘의 미션 완료!",
     "deadline.label": "투표 종료까지",
