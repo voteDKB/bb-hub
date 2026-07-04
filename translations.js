@@ -17,8 +17,6 @@ const TRANSLATIONS = {
     "mission.freeVote": "無料投票",
     "mission.ads": "広告",
 
-    "button.reset": "今日の進捗をリセット",
-
     "timer.ready": "広告を再開できます",
     "timer.cooldown": "次の広告まで",
     "timer.limit": "1時間 / 10回",
@@ -42,8 +40,6 @@ const TRANSLATIONS = {
     "mission.commentLike": "Like Support Comments",
     "mission.freeVote": "Free Vote",
     "mission.ads": "Ads",
-
-    "button.reset": "Reset Today's Progress",
 
     "timer.ready": "Ads Available",
     "timer.cooldown": "Next Ads In",
@@ -69,7 +65,6 @@ const TRANSLATIONS = {
     "mission.freeVote": "무료 투표",
     "mission.ads": "광고",
 
-    "button.reset": "오늘 진행 상황 초기화",
 
     "timer.ready": "광고를 다시 볼 수 있습니다",
     "timer.cooldown": "다음 광고까지",
