@@ -1,729 +1,444 @@
 /* ==========================
-   BB Hub Ver.1.1
+   BB Hub Ver.1.2 Design
 ========================== */
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 :root{
-
-    --blue:#2563eb;
-    --blue2:#3b82f6;
-    --blue3:#60a5fa;
-
-    --bg:#edf4ff;
-
-    --card:#ffffff;
-
-    --text:#183153;
-
-    --sub:#6b7280;
-
-    --border:#dbeafe;
-
-    --success:#22c55e;
-
+  --blue:#2563eb;
+  --blue2:#3b82f6;
+  --blue3:#60a5fa;
+  --bg:#edf4ff;
+  --card:#ffffff;
+  --text:#183153;
+  --sub:#6b7280;
+  --border:#dbeafe;
+  --success:#22c55e;
 }
 
 body{
-
-    background:var(--bg);
-
-    color:var(--text);
-
-    font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top left, rgba(96,165,250,.35), transparent 30%),
+    radial-gradient(circle at top right, rgba(255,151,194,.25), transparent 28%),
+    var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
 .page{
-
-    width:min(700px,95%);
-
-    margin:auto;
-
-    padding:20px 0 40px;
-
+  width:min(700px,94%);
+  margin:auto;
+  padding:20px 0 40px;
 }
 
-
-/* ==========================
-   Hero
-========================== */
+/* Hero */
 
 .hero{
-
-    background:
-    linear-gradient(
-    135deg,
-    var(--blue),
-    var(--blue2),
-    var(--blue3));
-
-    color:white;
-
-    border-radius:28px;
-
-    padding:28px;
-
-    box-shadow:
-    0 10px 30px
-    rgba(37,99,235,.25);
-
+  background:linear-gradient(135deg,#2563eb,#3b82f6,#60a5fa);
+  color:white;
+  border-radius:30px;
+  padding:28px;
+  box-shadow:0 14px 35px rgba(37,99,235,.28);
 }
 
 .eyebrow{
-
-    font-size:13px;
-
-    opacity:.85;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
+  font-size:13px;
+  opacity:.85;
+  letter-spacing:2px;
+  text-transform:uppercase;
 }
 
 .hero h1{
-
-    margin-top:8px;
-
-    font-size:36px;
-
-    font-weight:800;
-
+  margin-top:8px;
+  font-size:38px;
+  font-weight:900;
 }
 
 .subtitle{
-
-    margin-top:10px;
-
-    opacity:.9;
-
+  margin-top:8px;
+  opacity:.92;
 }
 
-
-/* ==========================
-   Language
-========================== */
+/* Language */
 
 .language-switcher{
-
-    display:flex;
-
-    gap:10px;
-
-    margin-top:24px;
-
+  display:flex;
+  gap:10px;
+  margin-top:24px;
 }
 
 .lang-btn{
-
-    flex:1;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:white;
-
-    color:var(--blue);
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    padding:12px;
-
-    transition:.2s;
-
-}
-
-.lang-btn:hover{
-
-    transform:translateY(-2px);
-
+  flex:1;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,.9);
+  color:var(--blue);
+  font-weight:800;
+  cursor:pointer;
+  padding:12px;
 }
 
 .lang-btn.active{
-
-    background:#dbeafe;
-
+  background:#ffffff;
+  box-shadow:inset 0 0 0 2px #dbeafe;
 }
 
-
-/* ==========================
-   Main
-========================== */
+/* Main */
 
 .main{
-
-    margin-top:24px;
-
+  margin-top:22px;
 }
 
-
-/* ==========================
-   Card
-========================== */
+/* Cards */
 
 .summary-card,
 .app-card{
-
-    background:var(--card);
-
-    border-radius:22px;
-
-    padding:20px;
-
-    margin-bottom:20px;
-
-    box-shadow:
-    0 5px 20px
-    rgba(0,0,0,.06);
-
+  background:linear-gradient(180deg,#ffffff,#f8fbff);
+  border:1px solid rgba(219,234,254,.9);
+  border-radius:26px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 10px 28px rgba(37,99,235,.08);
 }
 
-
-/* ==========================
-   Summary
-========================== */
-
-.summary-head{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
+.summary-head,
+.app-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
 }
 
 .section-label{
-
-    color:var(--sub);
-
-    font-size:13px;
-
+  color:var(--sub);
+  font-size:13px;
+  font-weight:700;
 }
 
 .summary-percent{
-
-    font-size:30px;
-
-    font-weight:800;
-
-    color:var(--blue);
-
+  font-size:30px;
+  font-weight:900;
+  color:var(--blue);
 }
 
 .progress-track{
-
-    width:100%;
-
-    height:14px;
-
-    border-radius:999px;
-
-    background:#dbeafe;
-
-    overflow:hidden;
-
-    margin:18px 0;
-
+  width:100%;
+  height:14px;
+  border-radius:999px;
+  background:#dbeafe;
+  overflow:hidden;
+  margin:18px 0;
 }
 
 .progress-fill{
-
-    width:0%;
-
-    height:100%;
-
-    background:
-    linear-gradient(
-    90deg,
-    var(--blue),
-    var(--blue3));
-
-    transition:.3s;
-
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#2563eb,#60a5fa);
+  border-radius:999px;
+  transition:.3s;
 }
 
 .summary-detail{
-
-    color:var(--sub);
-
+  color:var(--sub);
+  font-weight:600;
 }
 
+/* App title */
 
-/* ==========================
-   App
-========================== */
-
-.app-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:18px;
-
+.app-title-wrap{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
 }
 
 .app-title{
-
-    font-size:24px;
-
-    font-weight:700;
-
+  font-size:22px;
+  font-weight:900;
 }
 
 .app-progress{
-
-    background:#eff6ff;
-
-    color:var(--blue);
-
-    padding:6px 12px;
-
-    border-radius:999px;
-
-    font-weight:700;
-
+  background:#eff6ff;
+  color:var(--blue);
+  padding:7px 13px;
+  border-radius:999px;
+  font-weight:900;
+  white-space:nowrap;
 }
 
-
-/* ==========================
-   Mission
-========================== */
-
-.mission{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:14px 0;
-
-    border-bottom:1px solid #eef2f7;
-
-}
-
-.mission:last-child{
-
-    border:none;
-
-}
-
-.mission-left{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-}
-
-.mission input{
-
-    width:20px;
-
-    height:20px;
-
-    accent-color:var(--blue);
-
-}
-
-
-/* ==========================
-   Counter
-========================== */
-
-.counter{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-}
-
-.counter button{
-
-    width:34px;
-
-    height:34px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:var(--blue);
-
-    color:white;
-
-    font-size:20px;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-}
-
-.counter button:hover{
-
-    transform:scale(1.05);
-
-}
-
-.counter-value{
-
-    min-width:70px;
-
-    text-align:center;
-
-    font-weight:700;
-
-}
-
-.counter-panel{
-    width:100%;
-    background:#f8fbff;
-    border:1px solid #dbeafe;
-    border-radius:16px;
-    padding:14px;
-}
-
-.counter-label{
-    font-weight:700;
-    margin-bottom:10px;
-}
-
-.counter-progress{
-    width:100%;
-    height:12px;
-    background:#dbeafe;
-    border-radius:999px;
-    overflow:hidden;
-    margin-bottom:10px;
-}
-
-.counter-progress-fill{
-    width:0%;
-    height:100%;
-    background:linear-gradient(90deg,#2563eb,#60a5fa);
-    transition:.25s;
-}
-
-.counter-bottom{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.counter-bottom button{
-    width:38px;
-    height:38px;
-    border:none;
-    border-radius:12px;
-    background:#2563eb;
-    color:white;
-    font-size:22px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.counter-value{
-    font-weight:800;
-}
-
-/* ==========================
-   Counter Progress
-========================== */
-
-.counter-wrapper{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-    gap:8px;
-}
-
-.counter-progress{
-    width:100%;
-    height:10px;
-    background:#dbeafe;
-    border-radius:999px;
-    overflow:hidden;
-    margin:10px 0 14px;
-}
-
-.counter-progress-fill{
-    display:block;
-    width:0%;
-    height:100%;
-    background:linear-gradient(90deg,#2563eb,#60a5fa);
-    border-radius:999px;
-    transition:.25s;
-}
-/* ==========================
-   Timer
-========================== */
-
-.timer{
-
-    margin-top:14px;
-
-    background:#eef6ff;
-
-    border-radius:14px;
-
-    padding:14px;
-
-    text-align:center;
-
-    font-weight:700;
-
-    color:var(--blue);
-
-}
-
-.timer.ready{
-
-    background:#dcfce7;
-
-    color:#16a34a;
-
-}
-.timer-skip-btn{
-    margin-top:10px;
-    border:none;
-    border-radius:999px;
-    padding:8px 14px;
-    background:#ffffff;
-    color:#2563eb;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.timer-skip-btn:hover{
-    background:#dbeafe;
-}
-
-/* ==========================
-   Complete Message
-========================== */
-
-.complete-message{
-
-    background:#dcfce7;
-
-    color:#15803d;
-
-    text-align:center;
-
-    padding:18px;
-
-    border-radius:18px;
-
-    font-weight:700;
-
-    margin-bottom:20px;
-
-}
-
-.hidden{
-
-    display:none;
-
-}
-
-
-/* ==========================
-   Reset
-========================== */
-
-.reset-btn{
-
-    width:100%;
-
-    border:none;
-
-    border-radius:18px;
-
-    padding:16px;
-
-    background:var(--blue);
-
-    color:white;
-
-    font-size:16px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-}
-
-.reset-btn:hover{
-
-    background:#1d4ed8;
-
-}
-
-
-/* ==========================
-   Complete Card
-========================== */
-
-.completed-card{
-
-    border:2px solid #86efac;
-
-}
-
-
-/* ==========================
-   Responsive
-========================== */
-.app-title-wrap{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
+/* App icons */
 
 .app-icon{
-    width:44px;
-    height:44px;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:14px;
-    color:#fff;
-    font-size:20px;
-    font-weight:900;
-    box-shadow:0 6px 12px rgba(0,0,0,.15);
-    position:relative;
-    overflow:hidden;
+  width:46px;
+  height:46px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:15px;
+  color:white;
+  font-size:21px;
+  font-weight:900;
+  box-shadow:0 8px 16px rgba(0,0,0,.16);
+  position:relative;
+  overflow:hidden;
 }
 
 .app-icon::after{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:45%;
-    background:linear-gradient(
-        rgba(255,255,255,.45),
-        rgba(255,255,255,0)
-    );
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:46%;
+  background:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,0));
 }
 
 #app-stardom .app-icon{
-    background:linear-gradient(145deg,#ff5fa2,#ff97c2);
+  background:linear-gradient(145deg,#ff5fa2,#ff97c2);
 }
 
 #app-starRematch .app-icon{
-    background:linear-gradient(145deg,#ff4f87,#ff7ca5);
+  background:linear-gradient(145deg,#ff4f87,#ff7ca5);
 }
 
 #app-jkFandom .app-icon{
-    background:linear-gradient(145deg,#7c5cff,#4fa3ff);
+  background:linear-gradient(145deg,#7c5cff,#4fa3ff);
 }
-   .deadline-box{
-    margin:12px 0 18px;
-    padding:14px;
-    border-radius:16px;
-    background:linear-gradient(135deg,#eff6ff,#ffffff);
-    border:1px solid #dbeafe;
+
+/* Deadline */
+
+.deadline-box{
+  margin:14px 0 18px;
+  padding:13px 15px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#eff6ff,#ffffff);
+  border:1px solid #dbeafe;
 }
 
 .deadline-label{
-    display:block;
-    color:#6b7280;
-    font-size:13px;
-    margin-bottom:4px;
+  display:block;
+  color:#6b7280;
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:5px;
+}
+
+.deadline-label::before{
+  content:"⏰ ";
 }
 
 .deadline-time{
-    display:block;
-    color:#2563eb;
-    font-size:22px;
+  display:block;
+  color:#2563eb;
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:.3px;
 }
 
 .deadline-box.warning{
-    background:#fff7ed;
-    border-color:#fed7aa;
+  background:#fff7ed;
+  border-color:#fed7aa;
 }
 
 .deadline-box.warning .deadline-time{
-    color:#f97316;
+  color:#f97316;
 }
 
 .deadline-box.urgent{
-    background:#fef2f2;
-    border-color:#fecaca;
+  background:#fef2f2;
+  border-color:#fecaca;
 }
 
 .deadline-box.urgent .deadline-time{
-    color:#dc2626;
+  color:#dc2626;
 }
 
 .deadline-box.closed{
-    background:#f3f4f6;
-    border-color:#d1d5db;
+  background:#f3f4f6;
+  border-color:#d1d5db;
 }
 
 .deadline-box.closed .deadline-time{
-    color:#6b7280;
+  color:#6b7280;
 }
+
+/* Missions */
+
+.mission{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid #eef2f7;
+}
+
+.mission:last-child{
+  border:none;
+}
+
+.mission-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:700;
+}
+
+.mission input{
+  width:21px;
+  height:21px;
+  accent-color:var(--blue);
+}
+
+.mission.complete{
+  color:#16a34a;
+}
+
+/* Counter panel */
+
+.mission-counter{
+  display:block;
+}
+
+.counter-panel{
+  width:100%;
+  background:#f8fbff;
+  border:1px solid #dbeafe;
+  border-radius:18px;
+  padding:15px;
+}
+
+.counter-label{
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.counter-progress{
+  width:100%;
+  height:12px;
+  background:#dbeafe;
+  border-radius:999px;
+  overflow:hidden;
+  margin:10px 0 14px;
+}
+
+.counter-progress-fill{
+  display:block;
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#2563eb,#60a5fa);
+  border-radius:999px;
+  transition:.25s;
+}
+
+.counter-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.counter-bottom button{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:14px;
+  background:#2563eb;
+  color:white;
+  font-size:22px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 6px 14px rgba(37,99,235,.22);
+}
+
+.counter-value{
+  min-width:80px;
+  text-align:center;
+  font-weight:900;
+}
+
+/* Timer */
+
+.timer{
+  margin-top:14px;
+  background:#eef6ff;
+  border-radius:16px;
+  padding:14px;
+  text-align:center;
+  font-weight:800;
+  color:var(--blue);
+}
+
+.timer.ready{
+  background:#dcfce7;
+  color:#16a34a;
+}
+
+.timer-skip-btn{
+  margin-top:10px;
+  border:none;
+  border-radius:999px;
+  padding:8px 14px;
+  background:#ffffff;
+  color:#2563eb;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.timer-skip-btn:hover{
+  background:#dbeafe;
+}
+
+/* Complete */
+
+.complete-message{
+  background:#dcfce7;
+  color:#15803d;
+  text-align:center;
+  padding:18px;
+  border-radius:20px;
+  font-weight:900;
+  margin-bottom:20px;
+}
+
+.hidden{
+  display:none;
+}
+
+.completed-card{
+  border:2px solid #86efac;
+}
+
+/* Mobile */
+
 @media(max-width:600px){
+  .page{
+    width:94%;
+    padding-top:16px;
+  }
 
-.hero{
+  .hero{
+    padding:22px;
+    border-radius:26px;
+  }
 
-padding:22px;
+  .hero h1{
+    font-size:32px;
+  }
 
-}
+  .app-title{
+    font-size:20px;
+  }
 
-.hero h1{
+  .summary-percent{
+    font-size:25px;
+  }
 
-font-size:30px;
-
-}
-
-.app-title{
-
-font-size:20px;
-
-}
-
-.summary-percent{
-
-font-size:24px;
-
-}
-
-.counter button{
-
-width:30px;
-
-height:30px;
-
-}
-
+  .deadline-time{
+    font-size:22px;
+  }
 }
