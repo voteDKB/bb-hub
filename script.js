@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   prepareState();
   renderApps();
   bindLanguageButtons();
-  bindResetButton();
   applyLanguage();
   updateAll();
   startTimerLoop();
@@ -83,25 +82,7 @@ function bindLanguageButtons() {
   });
 }
 
-function bindResetButton() {
-  const resetBtn = document.getElementById("resetBtn");
-  if (!resetBtn) return;
 
-  resetBtn.addEventListener("click", () => {
-    const ok = confirm(t("button.reset"));
-    if (!ok) return;
-
-    state = {
-      date: todayKey(),
-      apps: {}
-    };
-
-    prepareState();
-    renderApps();
-    applyLanguage();
-    updateAll();
-  });
-}
 
 function applyLanguage() {
   document.documentElement.lang = currentLang;
