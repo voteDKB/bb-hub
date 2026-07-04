@@ -98,14 +98,37 @@ body{
 
 .summary-card,
 .app-card{
-  background:linear-gradient(180deg,#ffffff,#f8fbff);
+ background:
+linear-gradient(
+180deg,
+#ffffff,
+#f5f9ff);
+  position:relative;
+  overflow:hidden;
   border:1px solid rgba(219,234,254,.9);
   border-radius:26px;
   padding:24px;
   margin-bottom:20px;
   box-shadow:0 10px 28px rgba(37,99,235,.08);
 }
+.summary-card::before{
+    content:"";
 
+    position:absolute;
+
+    top:-70px;
+    right:-70px;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            rgba(96,165,250,.18),
+            transparent 70%);
+}
 .summary-head,
 .app-header{
   display:flex;
@@ -115,20 +138,26 @@ body{
 }
 
 .section-label{
-  color:var(--sub);
-  font-size:13px;
-  font-weight:700;
+    display:inline-block;
+    background:#eff6ff;
+    color:#2563eb;
+    padding:5px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:8px;
 }
 
 .summary-percent{
-  font-size:30px;
-  font-weight:900;
-  color:var(--blue);
+ font-size:42px;
+    font-weight:900;
+    color:var(--blue);
+    line-height:1;
 }
 
 .progress-track{
   width:100%;
-  height:14px;
+  height:18px;
   border-radius:999px;
   background:#dbeafe;
   overflow:hidden;
@@ -136,11 +165,17 @@ body{
 }
 
 .progress-fill{
-  width:0%;
-  height:100%;
-  background:linear-gradient(90deg,#2563eb,#60a5fa);
-  border-radius:999px;
-  transition:.3s;
+    width:0%;
+    height:100%;
+    border-radius:999px;
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #60a5fa,
+            #93c5fd
+        );
+    transition:.3s;
 }
 
 .summary-detail{
