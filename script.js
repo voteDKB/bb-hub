@@ -403,6 +403,15 @@ function updateCompleteMessage(completed, total) {
   const allCompleted = total > 0 && completed === total;
   message.classList.toggle("hidden", !allCompleted);
 }
+function skipCooldown(appId, missionId) {
+  const missionState = state.apps[appId][missionId];
+
+  missionState.hourCount = 0;
+  missionState.hourStartedAt = null;
+
+  saveState();
+  updateAll();
+}
 function updateTimerDisplay(app, mission, missionState) {
   const timer = document.getElementById(`timer-${app.id}-${mission.id}`);
   if (!timer) return;
@@ -412,7 +421,7 @@ function updateTimerDisplay(app, mission, missionState) {
 
   if (!missionState.hourStartedAt || missionState.hourCount < mission.hourlyLimit) {
     timer.classList.add("ready");
-    timer.textContent = `${t("timer.limit")} / ${t("timer.ready")}`;
+    timer.innerHTML = `${t("timer.limit")} / ${t("timer.ready")}`;
     return;
   }
 
@@ -425,12 +434,20 @@ function updateTimerDisplay(app, mission, missionState) {
     saveState();
 
     timer.classList.add("ready");
-    timer.textContent = `${t("timer.limit")} / ${t("timer.ready")}`;
+    timer.innerHTML = `${t("timer.limit")} / ${t("timer.ready")}`;
     return;
   }
 
   timer.classList.remove("ready");
-  timer.textContent = `${t("timer.cooldown")} ${formatTime(remaining)}`;
+  timer.innerHTML = `
+    <div>${t("timer.cooldown")} ${formatTime(remaining)}</div>
+    <button
+      type="button"
+      class="timer-skip-btn"
+      onclick="skipCooldown('${app.id}', '${mission.id}')">
+      ${t("timer.skip")}
+    </button>
+  `;
 }
 
 function startTimerLoop() {
