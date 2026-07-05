@@ -353,3 +353,12 @@ updateAllProgress();
 updateDeadlines();
 
 setInterval(updateDeadlines, 60000);
+
+// Service Worker登録
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("Service Worker registered"))
+      .catch((err) => console.error("Service Worker registration failed:", err));
+  });
+}
