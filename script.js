@@ -124,9 +124,14 @@ function playCompleteSound() {
 
   lastSoundIndex = index;
 
+  console.log("再生ファイル:", completeSounds[index]);
+
   const audio = new Audio(completeSounds[index]);
   audio.volume = 0.8;
-  audio.play().catch(() => {});
+  audio.play().catch((error) => {
+    console.log("音声再生エラー:", error);
+    alert("音声が再生できませんでした。Consoleを確認してください。");
+  });
 }
 
 const counterLimits = new WeakMap();
