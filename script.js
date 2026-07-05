@@ -99,6 +99,35 @@ const translations = {
 };
 
 let currentLang = localStorage.getItem("bbhub-lang") || "ja";
+/* ===== 完了音 ===== */
+
+const completeSounds = [
+  "sounds/Default_D1.mp3",
+  "sounds/Default_GK.mp3",
+  "sounds/Default_YUKU.mp3",
+  "sounds/Default_echan.mp3",
+  "sounds/Default_harry.mp3",
+  "sounds/Default_heechan.mp3",
+  "sounds/Default_junseo.mp3"
+];
+
+let lastSoundIndex = -1;
+
+function playCompleteSound() {
+  if (completeSounds.length === 0) return;
+
+  let index;
+
+  do {
+    index = Math.floor(Math.random() * completeSounds.length);
+  } while (completeSounds.length > 1 && index === lastSoundIndex);
+
+  lastSoundIndex = index;
+
+  const audio = new Audio(completeSounds[index]);
+  audio.volume = 0.8;
+  audio.play().catch(() => {});
+}
 
 const counterLimits = new WeakMap();
 
