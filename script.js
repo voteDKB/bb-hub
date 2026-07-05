@@ -146,11 +146,16 @@ document.querySelectorAll("[data-task]").forEach((input) => {
   input.checked = localStorage.getItem(key) === "true";
   updateMissionState(input.closest(".mission"));
 
-  input.addEventListener("change", () => {
-    localStorage.setItem(key, input.checked);
-    updateMissionState(input.closest(".mission"));
-    updateAllProgress();
-  });
+ input.addEventListener("change", () => {
+  localStorage.setItem(key, input.checked);
+  updateMissionState(input.closest(".mission"));
+
+  if (input.checked) {
+    playCompleteSound();
+  }
+
+  updateAllProgress();
+});
 });
 
 document.querySelectorAll("[data-plus]").forEach((btn) => {
@@ -158,8 +163,16 @@ document.querySelectorAll("[data-plus]").forEach((btn) => {
     const counter = btn.closest(".mission-counter");
     const limit = counterLimits.get(counter);
     const current = Number(counter.dataset.value || 0);
-    setCounter(counter, Math.min(current + 1, limit));
+    const next = Math.min(current + 1, limit);
+
+    setCounter(counter, next);
     localStorage.setItem(getCounterKey(counter), counter.dataset.value);
+
+    // ミッション達成時だけ音を再生
+    if (current < limit && next === limit) {
+      playCompleteSound();
+    }
+
     updateAllProgress();
   });
 });
