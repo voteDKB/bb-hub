@@ -1,123 +1,264 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>BB Hub</title>
-
+  <title>BB Hub Ver.1.3</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
   <div class="page">
-
     <header class="hero">
-      <p class="eyebrow">DKB Voting Tracker</p>
-      <h1 data-i18n="app.title">BB Hub</h1>
-      <p class="subtitle" data-i18n="app.subtitle">Today's Voting Tracker</p>
       <div class="hero-decoration" aria-hidden="true">
-<svg viewBox="0 0 220 180" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="48" y="72" width="126" height="76" rx="16" fill="white" opacity=".22"/>
+          <rect x="66" y="92" width="90" height="10" rx="5" fill="white" opacity=".55"/>
+          <rect x="78" y="36" width="74" height="48" rx="10" fill="white" opacity=".35" class="ballot-paper"/>
+          <path d="M96 58l11 11 22-25" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+        </svg>
+      </div>
 
-  <!-- Stars -->
-  <path d="M28 28l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"
-        fill="rgba(255,255,255,.35)"/>
+      <span class="eyebrow" data-i18n="eyebrow">DKB Voting Tracker</span>
+      <h1>BB Hub</h1>
+      <p class="subtitle" data-i18n="subtitle">今日の投票ミッションをまとめてチェックしよう</p>
 
-  <path d="M190 120l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"
-        fill="rgba(255,255,255,.35)"/>
-
-  <!-- Heart -->
-  <path
-    d="M175 35
-       C175 27 184 24 189 31
-       C194 24 203 27 203 35
-       C203 46 189 57 189 57
-       C189 57 175 46 175 35Z"
-    fill="none"
-    stroke="rgba(255,255,255,.35)"
-    stroke-width="3"
-    stroke-linejoin="round"/>
-
-  <!-- Voting Box -->
-  <rect
-    x="78"
-    y="74"
-    width="64"
-    height="52"
-    rx="10"
-    fill="none"
-    stroke="rgba(255,255,255,.35)"
-    stroke-width="4"/>
-
-  <line
-    x1="92"
-    y1="86"
-    x2="128"
-    y2="86"
-    stroke="rgba(255,255,255,.35)"
-    stroke-width="4"
-    stroke-linecap="round"/>
-
-  <!-- Ballot -->
-  <rect
-    x="98"
-    y="52"
-    width="24"
-    height="28"
-    rx="4"
-    fill="rgba(255,255,255,.28)"
-    transform="rotate(-12 110 66)"/>
-
-</svg>
-</div>
-
-      <div class="language-switcher" aria-label="Language">
-        <button type="button" class="lang-btn active" data-lang="ja">日本語</button>
-        <button type="button" class="lang-btn" data-lang="en">English</button>
-        <button type="button" class="lang-btn" data-lang="ko">한국어</button>
+      <div class="language-switcher" aria-label="language switcher">
+        <button class="lang-btn active" data-lang="ja">日本語</button>
+        <button class="lang-btn" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
       </div>
     </header>
 
     <main class="main">
-
       <section class="summary-card">
         <div class="summary-head">
           <div>
-            <p class="section-label" data-i18n="summary.title">今日の進捗</p>
-            <h2 id="totalProgressText">0 / 0</h2>
+            <span class="section-label" data-i18n="todayProgress">今日の進捗</span>
+            <h2 data-i18n="summaryTitle">Daily Mission</h2>
           </div>
-
-          <div class="summary-percent" id="totalPercent">0%</div>
+          <div class="summary-percent" id="summaryPercent">0%</div>
         </div>
 
-        <div class="progress-track" aria-hidden="true">
-          <div class="progress-fill" id="totalProgressBar"></div>
+        <div class="progress-track">
+          <div class="progress-fill" id="summaryFill"></div>
         </div>
 
         <p class="summary-detail">
-          <span id="completedCount">0</span>
-          <span data-i18n="summary.complete">完了</span>
-          /
-          <span id="remainingCount">0</span>
-          <span data-i18n="summary.remaining">残り</span>
+          <span id="completedCount">0</span> / <span id="totalCount">0</span>
+          <span data-i18n="missionsDone">ミッション完了</span>
         </p>
       </section>
 
       <section id="completeMessage" class="complete-message hidden">
-        <span data-i18n="message.complete">🎉 今日のミッション達成！</span>
+        <div class="complete-emoji">🎉</div>
+        <strong data-i18n="allDone">Today's mission accomplished!</strong>
+        <span data-i18n="seeTomorrow">また明日がんばろう！</span>
       </section>
 
-      <section id="appList" class="app-list">
-        <!-- script.jsで自動生成 -->
+      <section class="app-card app-stardom" data-app="stardom">
+        <div class="deadline-alert hidden" data-deadline-alert></div>
+
+        <div class="app-header">
+          <div class="app-title-wrap">
+            <div class="app-icon">S</div>
+            <div>
+              <h2 class="app-title">Stardom</h2>
+              <p class="app-subtitle" data-i18n="stardomSub">出席・広告・無料投票</p>
+            </div>
+          </div>
+          <div class="app-progress" data-app-percent>0%</div>
+        </div>
+
+        <div class="deadline-box" data-deadline="2026-07-08T23:59:00+09:00">
+          <span class="deadline-label" data-i18n="deadline">投票締切</span>
+          <span class="deadline-time" data-deadline-text>--</span>
+        </div>
+
+        <div class="mission-list">
+          <label class="mission mission-attendance">
+            <input type="checkbox" data-task />
+            <span class="mission-info">
+              <span class="mission-chip">📅 <span data-i18n="attendance">出席</span></span>
+              <span class="mission-note">1 / 1</span>
+            </span>
+            <span class="mission-state" data-i18n="todo">TODO</span>
+          </label>
+
+          <div class="mission mission-counter mission-ad">
+            <span class="mission-info">
+              <span class="mission-chip">🎥 <span data-i18n="ads30">広告30回</span></span>
+              <span class="mission-note"><span data-counter-value>0</span> / 30</span>
+            </span>
+            <div class="counter-panel">
+              <div class="counter-progress"><span data-counter-fill></span></div>
+              <div class="counter-bottom">
+                <button type="button" data-minus>-</button>
+                <strong data-counter-text>0 / 30</strong>
+                <button type="button" data-plus>+</button>
+              </div>
+            </div>
+          </div>
+
+          <label class="mission mission-vote">
+            <input type="checkbox" data-task />
+            <span class="mission-info">
+              <span class="mission-chip">🗳️ <span data-i18n="freeVote">無料投票</span></span>
+              <span class="mission-note">1 / 1</span>
+            </span>
+            <span class="mission-state" data-i18n="todo">TODO</span>
+          </label>
+        </div>
+
+        <div class="app-card-footer">
+          <div class="app-mini-track"><span data-app-fill></span></div>
+          <span class="complete-ribbon hidden" data-i18n="complete">COMPLETE</span>
+        </div>
       </section>
 
-      
+      <section class="app-card app-rematch" data-app="rematch">
+        <div class="deadline-alert hidden" data-deadline-alert></div>
 
+        <div class="app-header">
+          <div class="app-title-wrap">
+            <div class="app-icon">R</div>
+            <div>
+              <h2 class="app-title">Star Rematch</h2>
+              <p class="app-subtitle" data-i18n="rematchSub">FC出席・コメント・広告</p>
+            </div>
+          </div>
+          <div class="app-progress" data-app-percent>0%</div>
+        </div>
+
+        <div class="deadline-box" data-deadline="2026-07-08T23:59:00+09:00">
+          <span class="deadline-label" data-i18n="deadline">投票締切</span>
+          <span class="deadline-time" data-deadline-text>--</span>
+        </div>
+
+        <div class="mission-list">
+          <label class="mission mission-fc">
+            <input type="checkbox" data-task />
+            <span class="mission-info">
+              <span class="mission-chip">💗 <span data-i18n="fcAttendance">FC出席</span></span>
+              <span class="mission-note">1 / 1</span>
+            </span>
+            <span class="mission-state" data-i18n="todo">TODO</span>
+          </label>
+
+          <div class="mission mission-counter mission-comment">
+            <span class="mission-info">
+              <span class="mission-chip">💬 <span data-i18n="comments10">応援コメント10個</span></span>
+              <span class="mission-note"><span data-counter-value>0</span> / 10</span>
+            </span>
+            <div class="counter-panel">
+              <div class="counter-progress"><span data-counter-fill></span></div>
+              <div class="counter-bottom">
+                <button type="button" data-minus>-</button>
+                <strong data-counter-text>0 / 10</strong>
+                <button type="button" data-plus>+</button>
+              </div>
+            </div>
+          </div>
+
+          <label class="mission mission-like">
+            <input type="checkbox" data-task />
+            <span class="mission-info">
+              <span class="mission-chip">❤️ <span data-i18n="likeComments">応援コメントにいいね</span></span>
+              <span class="mission-note">1 / 1</span>
+            </span>
+            <span class="mission-state" data-i18n="todo">TODO</span>
+          </label>
+
+          <div class="mission mission-counter mission-ad">
+            <span class="mission-info">
+              <span class="mission-chip">🎥 <span data-i18n="ads">広告</span></span>
+              <span class="mission-note"><span data-counter-value>0</span> / 10</span>
+            </span>
+            <div class="counter-panel">
+              <div class="counter-progress"><span data-counter-fill></span></div>
+              <div class="counter-bottom">
+                <button type="button" data-minus>-</button>
+                <strong data-counter-text>0 / 10</strong>
+                <button type="button" data-plus>+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timer" id="rematchTimer">
+          <span data-i18n="nextAds">次の広告まで</span>
+          <strong>60:00</strong>
+          <button type="button" class="timer-skip-btn" id="resetTimer" data-i18n="timerReset">1時間経ったことにする</button>
+        </div>
+
+        <div class="app-card-footer">
+          <div class="app-mini-track"><span data-app-fill></span></div>
+          <span class="complete-ribbon hidden" data-i18n="complete">COMPLETE</span>
+        </div>
+      </section>
+
+      <section class="app-card app-jk" data-app="jk">
+        <div class="deadline-alert hidden" data-deadline-alert></div>
+
+        <div class="app-header">
+          <div class="app-title-wrap">
+            <div class="app-icon">JK</div>
+            <div>
+              <h2 class="app-title">JK Fandom</h2>
+              <p class="app-subtitle" data-i18n="jkSub">紫テーマで管理</p>
+            </div>
+          </div>
+          <div class="app-progress" data-app-percent>0%</div>
+        </div>
+
+        <div class="deadline-box" data-deadline="2026-07-08T23:59:00+09:00">
+          <span class="deadline-label" data-i18n="deadline">投票締切</span>
+          <span class="deadline-time" data-deadline-text>--</span>
+        </div>
+
+        <div class="mission-list">
+          <label class="mission mission-attendance">
+            <input type="checkbox" data-task />
+            <span class="mission-info">
+              <span class="mission-chip">📅 <span data-i18n="attendance">出席</span></span>
+              <span class="mission-note">1 / 1</span>
+            </span>
+            <span class="mission-state" data-i18n="todo">TODO</span>
+          </label>
+
+          <label class="mission mission-vote">
+            <input type="checkbox" data-task />
+            <span class="mission-info">
+              <span class="mission-chip">💜 <span data-i18n="freeVote">無料投票</span></span>
+              <span class="mission-note">1 / 1</span>
+            </span>
+            <span class="mission-state" data-i18n="todo">TODO</span>
+          </label>
+
+          <div class="mission mission-counter mission-ad">
+            <span class="mission-info">
+              <span class="mission-chip">🎥 <span data-i18n="ads">広告</span></span>
+              <span class="mission-note"><span data-counter-value>0</span> / 5</span>
+            </span>
+            <div class="counter-panel">
+              <div class="counter-progress"><span data-counter-fill></span></div>
+              <div class="counter-bottom">
+                <button type="button" data-minus>-</button>
+                <strong data-counter-text>0 / 5</strong>
+                <button type="button" data-plus>+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card-footer">
+          <div class="app-mini-track"><span data-app-fill></span></div>
+          <span class="complete-ribbon hidden" data-i18n="complete">COMPLETE</span>
+        </div>
+      </section>
     </main>
   </div>
 
-  <script src="translations.js"></script>
-  <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
