@@ -299,47 +299,10 @@ function updateDeadlines(){
   });
 }
 
-/* Star Rematch hourly timer */
 
-let timerEnd = Number(localStorage.getItem("bbhub-rematch-timer-end") || 0);
-const timerBox = document.getElementById("rematchTimer");
-const timerStrong = timerBox?.querySelector("strong");
-
-function startTimer(){
-  if(!timerEnd || timerEnd < Date.now()){
-    timerEnd = Date.now() + 60 * 60 * 1000;
-    localStorage.setItem("bbhub-rematch-timer-end", timerEnd);
-  }
-  updateTimer();
-}
-
-function updateTimer(){
-  if(!timerStrong) return;
-
-  const remain = timerEnd - Date.now();
-
-  if(remain <= 0){
-    timerStrong.textContent = "READY!";
-    timerBox.classList.add("ready");
-    return;
-  }
-
-  timerBox.classList.remove("ready");
-  const minutes = Math.floor(remain / 60000);
-  const seconds = Math.floor((remain % 60000) / 1000);
-  timerStrong.textContent = `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
-}
-
-document.getElementById("resetTimer")?.addEventListener("click", () => {
-  timerEnd = Date.now() - 1000;
-  localStorage.setItem("bbhub-rematch-timer-end", timerEnd);
-  updateTimer();
-});
 
 applyLanguage();
 updateAllProgress();
 updateDeadlines();
-startTimer();
 
-setInterval(updateTimer, 1000);
 setInterval(updateDeadlines, 60000);
