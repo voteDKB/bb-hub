@@ -99,6 +99,34 @@ const translations = {
 };
 
 let currentLang = localStorage.getItem("bbhub-lang") || "ja";
+
+/* ===== 0時リセット ===== */
+
+function resetDailyMissionsIfNeeded() {
+  const today = new Date().toLocaleDateString("ja-JP", {
+    timeZone: "Asia/Tokyo"
+  });
+
+  const lastResetDate = localStorage.getItem("bbhub-last-reset-date");
+
+  if (lastResetDate === today) return;
+
+  Object.keys(localStorage).forEach((key) => {
+    if (
+      key.startsWith("bbhub-stardom-task-") ||
+      key.startsWith("bbhub-stardom-counter-") ||
+      key.startsWith("bbhub-rematch-task-") ||
+      key.startsWith("bbhub-rematch-counter-") ||
+      key.startsWith("bbhub-jk-task-") ||
+      key.startsWith("bbhub-jk-counter-")
+    ) {
+      localStorage.removeItem(key);
+    }
+  });
+
+  localStorage.setItem("bbhub-last-reset-date", today);
+}
+document.querySelectorAll(".mission-counter").forEach((counter) => {
 /* ===== 完了音 ===== */
 
 const completeSounds = [
