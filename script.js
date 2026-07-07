@@ -126,7 +126,7 @@ function resetDailyMissionsIfNeeded() {
 
   localStorage.setItem("bbhub-last-reset-date", today);
 }
-document.querySelectorAll(".mission-counter").forEach((counter) => {
+resetDailyMissionsIfNeeded();
 /* ===== 完了音 ===== */
 
 const completeSounds = [
