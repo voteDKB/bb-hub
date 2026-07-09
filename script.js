@@ -326,6 +326,20 @@ function applyLanguage(){
   document.querySelectorAll(".mission").forEach(updateMissionState);
 }
 
+function updateComingSoon(){
+  const now = new Date();
+
+  document.querySelectorAll("[data-start]").forEach((card) => {
+    const start = new Date(card.dataset.start);
+    const isComingSoon = now < start;
+
+    card.classList.toggle("coming-soon", isComingSoon);
+
+    card.querySelectorAll("input, button").forEach((el) => {
+      el.disabled = isComingSoon;
+    });
+  });
+}
 /* Deadline */
 
 function updateDeadlines(){
@@ -346,20 +360,7 @@ function updateDeadlines(){
       box.classList.add("closed");
       return;
     }
-function updateComingSoon(){
-  const now = new Date();
 
-  document.querySelectorAll("[data-start]").forEach((card) => {
-    const start = new Date(card.dataset.start);
-    const isComingSoon = now < start;
-
-    card.classList.toggle("coming-soon", isComingSoon);
-
-    card.querySelectorAll("input, button").forEach((el) => {
-      el.disabled = isComingSoon;
-    });
-  });
-}
     const totalMinutes = Math.floor(diff / 60000);
     const days = Math.floor(totalMinutes / 1440);
     const hours = Math.floor((totalMinutes % 1440) / 60);
