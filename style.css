@@ -370,6 +370,7 @@ body{
   border-radius:20px;
   background:linear-gradient(135deg,#eff6ff,#ffffff);
   border:1px solid #dbeafe;
+  box-shadow:0 12px 28px rgba(37,99,235,.14);
 }
 
 .deadline-label{
@@ -792,4 +793,11 @@ body{
   font-weight:950;
   text-align:center;
   box-shadow:0 12px 28px rgba(37,99,235,.22);
+}
+.coming-soon-label small{
+  display:block;
+  margin-top:6px;
+  color:#6b7280;
+  font-size:13px;
+  font-weight:900;
 }
