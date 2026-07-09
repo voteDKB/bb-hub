@@ -335,6 +335,19 @@ function updateComingSoon(){
 
     card.classList.toggle("coming-soon", isComingSoon);
 
+    let label = card.querySelector(".coming-soon-label");
+
+    if (isComingSoon && !label) {
+      label = document.createElement("div");
+      label.className = "coming-soon-label";
+      label.textContent = "Coming soon";
+      card.querySelector(".deadline-box").after(label);
+    }
+
+    if (!isComingSoon && label) {
+      label.remove();
+    }
+
     card.querySelectorAll("input, button").forEach((el) => {
       el.disabled = isComingSoon;
     });
