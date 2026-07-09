@@ -797,3 +797,14 @@ body{
   text-align:center;
   box-shadow:0 12px 28px rgba(37,99,235,.22);
 }
+.coming-soon-label{
+  margin:10px 0 18px;
+  padding:18px 12px;
+  border-radius:22px;
+  background:rgba(255,255,255,.96);
+  color:#2563eb;
+  font-size:28px;
+  font-weight:950;
+  text-align:center;
+  box-shadow:0 12px 28px rgba(37,99,235,.22);
+}
