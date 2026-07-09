@@ -769,41 +769,31 @@ body{
   margin: 18px 0;
 }
 
-/* Coming soon / locked */
-.app-card.coming-soon,
-.app-card.locked,
-.app-card.disabled,
-.app-card.coming{
-  overflow:hidden;
+/* Coming soon */
+.app-card.coming-soon{
+  position:relative !important;
+  overflow:hidden !important;
 }
 
 .app-card.coming-soon .mission-list,
-.app-card.locked .mission-list,
-.app-card.disabled .mission-list,
-.app-card.coming .mission-list,
-.app-card.coming-soon .app-card-footer,
-.app-card.locked .app-card-footer,
-.app-card.disabled .app-card-footer,
-.app-card.coming .app-card-footer{
-  opacity:.28;
-  pointer-events:none;
+.app-card.coming-soon .app-card-footer{
+  opacity:.25 !important;
+  pointer-events:none !important;
 }
 
-.app-card.coming-soon::after,
-.app-card.locked::after,
-.app-card.disabled::after,
-.app-card.coming::after{
+.app-card.coming-soon::after{
   content:"Coming soon";
-  display:block;
-  position:relative;
-  z-index:3;
-  margin:10px 0 18px;
+  position:absolute !important;
+  top:120px;
+  left:20px;
+  right:20px;
+  z-index:999 !important;
   padding:18px 12px;
   border-radius:22px;
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.96);
   color:#2563eb;
   font-size:28px;
   font-weight:950;
   text-align:center;
-  box-shadow:0 12px 28px rgba(37,99,235,.16);
+  box-shadow:0 12px 28px rgba(37,99,235,.22);
 }
