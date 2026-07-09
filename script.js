@@ -26,7 +26,7 @@ const translations = {
     done: "DONE",
     complete: "COMPLETE",
     nextAds: "次の広告まで",
-    timerReset: "1時間経ったことにする",
+
     ended: "終了しました",
     daysLeft: "残り{d}日 {h}時間",
     hoursLeft: "残り{h}時間 {m}分",
