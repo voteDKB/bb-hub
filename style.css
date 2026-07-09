@@ -771,7 +771,7 @@ body{
 }
 
 /* Coming soon */
-.app-card.coming-soon::before{
+.app-card.coming-soon::after{
   content:"";
   position:absolute;
   inset:0;
