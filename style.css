@@ -799,3 +799,14 @@ body{
 .app-card {
   overflow: hidden;
 }
+.locked,
+.disabled {
+  opacity: 1;
+}
+
+.app-card.locked::before,
+.app-card.locked::after,
+.app-card.disabled::before,
+.app-card.disabled::after {
+  display: none;
+}
