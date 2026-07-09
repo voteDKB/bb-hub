@@ -343,7 +343,7 @@ label.className = "coming-soon-label";
 
 label.innerHTML = `
   <div>Coming soon</div>
-  <small>決勝投票開始：7月10日 00:00 JST</small>
+  <small>決勝投票開始：7月10日 11:00 JST</small>
 `;
 
 card.querySelector(".deadline-box").after(label);
