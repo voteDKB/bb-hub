@@ -338,10 +338,15 @@ function updateComingSoon(){
     let label = card.querySelector(".coming-soon-label");
 
     if (isComingSoon && !label) {
-      label = document.createElement("div");
-      label.className = "coming-soon-label";
-      label.textContent = "Coming soon";
-      card.querySelector(".deadline-box").after(label);
+     label = document.createElement("div");
+label.className = "coming-soon-label";
+
+label.innerHTML = `
+  <div>Coming soon</div>
+  <small>決勝投票開始：7月10日 00:00 JST</small>
+`;
+
+card.querySelector(".deadline-box").after(label);
     }
 
     if (!isComingSoon && label) {
