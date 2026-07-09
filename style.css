@@ -777,22 +777,30 @@ body{
   margin: 18px 0;
 }
 
-/* Coming soon */
-.app-card.coming-soon{
+/* Coming soon / locked */
+.app-card.coming-soon,
+.app-card.locked,
+.app-card.disabled,
+.app-card.coming{
   overflow:hidden;
 }
 
 .app-card.coming-soon .mission-list,
-.app-card.coming-soon .app-card-footer{
+.app-card.locked .mission-list,
+.app-card.disabled .mission-list,
+.app-card.coming .mission-list,
+.app-card.coming-soon .app-card-footer,
+.app-card.locked .app-card-footer,
+.app-card.disabled .app-card-footer,
+.app-card.coming .app-card-footer{
   opacity:.28;
   pointer-events:none;
 }
 
-.app-card.coming-soon .deadline-box{
-  margin-bottom:14px;
-}
-
-.app-card.coming-soon::after{
+.app-card.coming-soon::after,
+.app-card.locked::after,
+.app-card.disabled::after,
+.app-card.coming::after{
   content:"Coming soon";
   display:block;
   position:relative;
