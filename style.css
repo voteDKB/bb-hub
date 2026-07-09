@@ -759,14 +759,6 @@ body{
     font-size:13px;
   }
 }
-.app-card.coming-soon{
-  position: relative;
-}
-
-.app-card.coming-soon .mission-list{
-  opacity: .35;
-  pointer-events: none;
-}
 
 
 
