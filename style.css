@@ -769,15 +769,7 @@ body{
 }
 
 
-  padding: 18px;
-  border-radius: 20px;
-  background: rgba(255,255,255,.9);
-  color: #2563eb;
-  font-size: 28px;
-  font-weight: 900;
-  text-align: center;
-  box-shadow: 0 12px 30px rgba(37,99,235,.18);
-}
+
 .deadline-box,
 .countdown-box {
   position: relative;
